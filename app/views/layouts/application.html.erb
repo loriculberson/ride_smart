@@ -6,10 +6,14 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => false %>
   <%= csrf_meta_tags %>
 </head>
+
+<%= render 'partials/navbar' %>
+<%= render 'partials/flash_messages' %>
 <body>
-  <%= render 'partials/navbar' %>
-  <%= render 'partials/flash_messages' %>
-<%= yield %>
+
+<div class="container">
+  <%= yield %>
+</div>
 
 </body>
 </html>
