@@ -15,7 +15,7 @@ RSpec.describe type: :feature do
     fill_in("user[password]", with: "password" )
     fill_in("user[password_confirmation]", with: "password" )
     fill_in("user[email]", with: "happy@example.com" )
-    fill_in("user[display_name]", with: "rockstar" )
+    fill_in("user[nickname]", with: "twitter rockstar" )
     click_link_or_button "Create Account"
 
     expect(page).to have_content("Account created!")
