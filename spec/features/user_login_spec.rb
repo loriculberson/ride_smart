@@ -1,44 +1,29 @@
 require 'rails_helper'
 
-RSpec.describe type: :feature do
+RSpec.describe "authorized user can login", type: :feature do 
 
-  def sign_up
+  it "can login" do
+    user = create(:user)
     visit '/'
-    click_on 'Sign Up'
+    within('#login') do
+      fill_in("session[username]", with: "bubba" )
+      fill_in("session[password]", with: "password" )
+      click_on 'Login'
+    end 
+    expect(page).to have_content("Successfully logged in!")
+    expect(page).to have_content("Welcome bubba!")
+    expect(current_path).to eql(root_path)
   end
 
-  it "can create an account without OAuth" do
-    sign_up
-
-    expect(current_path).to eq(new_user_path)
-  end
-
-  it "sees successful flash message if user is created" do
-    sign_up
-    fill_in("user[username]", with: "buttercup" )
-    fill_in("user[password]", with: "password" )
-    fill_in("user[password_confirmation]", with: "password" )
-    fill_in("user[email]", with: "happy@example.com" )
-    fill_in("user[nickname]", with: "twitter rockstar" )
-    click_on "Create Account"
-
-    expect(page).to have_content("Account Created!")
-  end
-
-  it "sees an error message if user does not include email" do 
-    sign_up
-    fill_in("user[username]", with: "buttercup" )
-    fill_in("user[password]", with: "password" )
-    fill_in("user[password_confirmation]", with: "password" )
-    fill_in("user[email]", with: nil )
-    fill_in("user[nickname]", with: "twitter rockstar" )
-    click_on "Create Account"
-
-    expect(page).to have_content("Email can't be blank")
-    expect(current_path).to eq(users_path)
-  end
-
-
-
-  
+  it "can not login without a valid password" do
+    user = create(:user)
+    visit '/'
+    within('#login') do
+      fill_in("session[username]", with: "bubba" )
+      fill_in("session[password]", with: "" )
+      click_on 'Login'
+    end 
+    expect(page).to have_content("Invalid login. Please try again.")
+    expect(current_path).to eql(root_path)
+  end  
 end
