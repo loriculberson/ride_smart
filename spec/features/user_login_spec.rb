@@ -11,7 +11,7 @@ RSpec.describe "authorized user can login", type: :feature do
       click_on 'Login'
     end 
     expect(page).to have_content("Successfully logged in!")
-    expect(page).to have_content("Welcome bubba!")
+    expect(page).to have_content("Welcome #{user.username}!")
     expect(current_path).to eql(root_path)
   end
 
