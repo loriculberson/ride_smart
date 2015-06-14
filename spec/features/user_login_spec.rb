@@ -8,4 +8,6 @@ RSpec.describe type: :feature do
 
     expect(current_path).to eq(new_user_path)
   end
+
+  
 end
