@@ -2,16 +2,21 @@
     <div class="form">
       <h1>Join Our Riders!</h1>
 
-        <%= form_for(:user, url: users_path, method: :post, role:"form") do |f| %>
+        <%= form_for(@user, url: users_path, method: :post, role:"form") do |f| %>
 
-        <%#= render "partials/user_errors" %>
+        <%= render "partials/user_errors" %>
 
         <%= f.label :username %>
-        <%= f.text_field :username, class: "form-control"%><br>
+        <%= f.text_field :username, autofocus: true ,class: "form-control"%><br>
 
         <div>
           <%= f.label :password%>
-          <%= f.text_field :password %>
+          <%= f.password_field  :password %>
+        </div>
+
+        <div>
+          <%= f.label :password_confirmation%>
+          <%= f.password_field  :password_confirmation %>
         </div>
 
         <div>
@@ -21,16 +26,16 @@
 
         <div>
           <%= f.label :twitter_nickname%>
-          <%= f.text_field :twitter_nickname %>
+          <%= f.text_field :nickname %>
         </div>
 
         <div>
           <%= f.label :image, "Attach an Image" %><br />
-          <%= f.file_field :image %>
+          <%= f.file_field :image_url %>
         </div>
 
           <div>
-            <%= f.submit "Submit", class: "btn btn-primary" %>
+            <%= f.submit "Create Account", class: "btn btn-primary" %>
           </div>
         <% end %>
     </div>  
