@@ -15,18 +15,23 @@
         </div>
 
         <div>
+          <%= f.label :password_confirmation%>
+          <%= f.text_field :password_confirmation %>
+        </div>
+
+        <div>
           <%= f.label :email%>
           <%= f.text_field :email %>
         </div>
 
         <div>
           <%= f.label :twitter_nickname%>
-          <%= f.text_field :twitter_nickname %>
+          <%= f.text_field :nickname %>
         </div>
 
         <div>
           <%= f.label :image, "Attach an Image" %><br />
-          <%= f.file_field :image %>
+          <%= f.file_field :image_url %>
         </div>
 
           <div>
