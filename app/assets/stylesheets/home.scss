@@ -1,0 +1,25 @@
+.home-pg-image { 
+  background: asset-url("bike_in_accident.jpg"); 
+  background-size: cover;
+  height:100vh;
+}
+
+.home-pg-image {
+
+  background:url(image_path("bike_in_accident.jpg")) 
+  no-repeat ;
+  min-height:500px;
+  max-height:500px;
+  background-size:100%;
+  top-margin: 0;
+}
+
+
+#app-explanation {
+  position:relative;
+  color: white;
+  margin-top: 135px;
+  margin-right: 20px;
+  font-size: 1.5em;
+  margin-left: auto;
+}

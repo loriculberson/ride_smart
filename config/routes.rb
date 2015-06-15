@@ -8,4 +8,5 @@ Rails.application.routes.draw do
 
   resource :user, only: [:show, :edit, :update]
   resources :users, only: [:new, :index, :create]
+  resources :bike_events, only: [:index, :new, :create]
 end

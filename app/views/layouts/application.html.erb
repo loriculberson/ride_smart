@@ -10,10 +10,10 @@
   <%= csrf_meta_tags %>
 </head>
 
-<%= render 'partials/sample_navbar' %>
+<%= render 'partials/navbar_v2' %>
 <%= render 'partials/flash_messages' %>
-<body>
 
+<body class="<%=@body_class%>">
 <div>
   <%= yield %>
 </div>

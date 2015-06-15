@@ -16,7 +16,7 @@
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Map View <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
-            <li><a href="#">All Bike Incidents</a></li>
+            <li><a href="/bike_events">All Bike Incidents</a></li>
             <li class="divider"></li>
             <li><a href="#">Accidents</a></li>
             <li><a href="#">Road Hazards</a></li>
@@ -28,16 +28,16 @@
           <% if current_user %>
             <%= render 'partials/navbar_logged_in_user' %>
           <% else %>
-        <li> <%= link_to "Login", login_path %> </li>
 
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Sign Up <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
             <li><a href="#">with Google Account</a></li>
             <li class="divider"></li>
-            <li><a href="#">with Email</a></li>
-          <% end %>
+            <li><a href="/users/new">with Email</a></li>
           </ul>
+            <li> <%= link_to "Login", login_path %> </li>
+          <% end %>
         <li> <%#= link_to "Sign Up", new_user_path %> </li>
 
       </ul>
