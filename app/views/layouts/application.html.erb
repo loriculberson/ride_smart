@@ -2,6 +2,9 @@
 <html>
 <head>
   <title>RideSmart</title>
+  <script src="https://maps.googleapis.com/maps/api/js?sensor=true&libraries=places"></script>
+  <script type="text/javascript" src="google_map.js"></script>
+
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => false %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => false %>
   <%= csrf_meta_tags %>
@@ -11,7 +14,7 @@
 <%= render 'partials/flash_messages' %>
 <body>
 
-<div class="container">
+<div>
   <%= yield %>
 </div>
 
