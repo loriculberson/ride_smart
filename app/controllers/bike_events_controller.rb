@@ -1,0 +1,2 @@
+class BikeEventsController < ApplicationController
+end
