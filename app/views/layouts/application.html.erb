@@ -2,18 +2,25 @@
 <html>
 <head>
   <title>RideSmart</title>
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+  <script src="https://maps.googleapis.com/maps/api/js?sensor=true&libraries=places"></script>
+  <script type="text/javascript" src="google_map.js"></script>
+
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => false %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => false %>
   <%= csrf_meta_tags %>
 </head>
 
-<%= render 'partials/navbar' %>
-<%= render 'partials/flash_messages' %>
-<body>
 
-<div class="container">
+<body class="<%= @body_class %>">
+  <%= render 'partials/navbar_v2' %>
+  <%= render 'partials/flash_messages' %>
+
   <%= yield %>
-</div>
-
+  <footer>
+  Accidents and road hazards reported by cyclists for cyclists.
+  </footer>
 </body>
+
 </html>
