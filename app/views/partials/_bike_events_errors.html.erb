@@ -1,0 +1,12 @@
+<% if @bike_event && @bike_event.errors.any? %>
+  <div id="error_explanation">
+    <div class="alert alert-danger">
+    The form contains <%= pluralize(@bike_event.errors.count, "error") %>.
+    </div>
+    <ul>
+      <% @bike_event.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>

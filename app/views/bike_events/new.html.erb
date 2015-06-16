@@ -4,29 +4,22 @@
 
         <%= form_for(@bike_event, url: bike_events_path, method: :post, role:"form") do |f| %>
 
-        <%#= render "partials/bike_events_errors" %>
-
-        <%= f.label :event_kind %>
-        <%= f.text_field :username, autofocus: true ,class: "form-control"%><br>
-
+        <%= render "partials/bike_events_errors" %>
         <div>
-          <%= f.label :password%>
-          <%= f.password_field  :password %>
+          <%= f.label :event_kind %><br>
+          <%= f.check_box :event_kind %> Accident<br>
+          <%= f.check_box :event_kind %> Road Hazard<br>
+          <%= f.check_box :event_kind %> Other<br>
+        </div>
+
+         <div>
+          <%= f.label :incident_date %>
+          <%= f.date_select :occurred_at %><br>
         </div>
 
         <div>
-          <%= f.label :password_confirmation%>
-          <%= f.password_field  :password_confirmation %>
-        </div>
-
-        <div>
-          <%= f.label :email%>
-          <%= f.text_field :email %>
-        </div>
-
-        <div>
-          <%= f.label :twitter_nickname%>
-          <%= f.text_field :nickname %>
+          <%= f.label :details%>
+          <%= f.text_area :details %>
         </div>
 
         <div>
@@ -35,6 +28,9 @@
         </div>
 
         <div>
+         <%= f.hidden_field :user_id, value: current_user.id %>
+         <%= f.hidden_field :latitude, value: 39.7392%>
+         <%= f.hidden_field :longitude, value: -104.9903 %>
           <%= f.submit "Report", class: "btn btn-primary" %>
         </div>
         <% end %>

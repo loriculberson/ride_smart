@@ -23,7 +23,7 @@
             <li><a href="#">Other</a></li>
           </ul>
         </li>
-        <li> <%= link_to "Report an Incident", login_path %> </li>
+        <li> <%= link_to "Report an Incident", new_bike_event_path %> </li>
 
           <% if current_user %>
             <%= render 'partials/navbar_logged_in_user' %>
