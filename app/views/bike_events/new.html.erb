@@ -1,0 +1,42 @@
+<div class="col-xs-6">
+    <div class="form">
+      <h1>Report a Bike Incident</h1>
+
+        <%= form_for(@bike_event, url: bike_events_path, method: :post, role:"form") do |f| %>
+
+        <%#= render "partials/bike_events_errors" %>
+
+        <%= f.label :event_kind %>
+        <%= f.text_field :username, autofocus: true ,class: "form-control"%><br>
+
+        <div>
+          <%= f.label :password%>
+          <%= f.password_field  :password %>
+        </div>
+
+        <div>
+          <%= f.label :password_confirmation%>
+          <%= f.password_field  :password_confirmation %>
+        </div>
+
+        <div>
+          <%= f.label :email%>
+          <%= f.text_field :email %>
+        </div>
+
+        <div>
+          <%= f.label :twitter_nickname%>
+          <%= f.text_field :nickname %>
+        </div>
+
+        <div>
+          <%= f.label :image, "Attach an Image" %><br />
+          <%= f.file_field :image_url %>
+        </div>
+
+        <div>
+          <%= f.submit "Report", class: "btn btn-primary" %>
+        </div>
+        <% end %>
+    </div>  
+</div>`
