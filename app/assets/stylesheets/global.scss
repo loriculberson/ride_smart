@@ -1,3 +1,6 @@
+//global styles. Some of which are overridden by the homepage
+//since the homepage has a footer and a transparent navbar
+
 body,
 html {
   width: 100%;
@@ -15,12 +18,9 @@ h6 {
   font-weight: 700;
 }
 
-
 body {
   margin-top: 60px;
 }
-
-
 
 .flash {
   position: fixed;

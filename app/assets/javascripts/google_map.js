@@ -17,6 +17,7 @@ $(document).ready(function(){
   };
 
   var marker = new google.maps.Marker(markerOptions);
+
   marker.setMap(map)
 
 //pop up window
