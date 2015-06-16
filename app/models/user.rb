@@ -14,7 +14,8 @@ class User < ActiveRecord::Base
       user.image_url  = auth.info.image
       user.token      = auth.credentials.token
       user.password   = "password"
-      user.save!
+       
+      user.save
     end
   end
 end
