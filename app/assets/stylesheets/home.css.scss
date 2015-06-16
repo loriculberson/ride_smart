@@ -1,0 +1,89 @@
+/*!
+ * Start Bootstrap - Landing Page Bootstrap Theme (http://startbootstrap.com)
+ * Code licensed under the Apache License v2.0.
+ * For details, see http://www.apache.org/licenses/LICENSE-2.0.
+ */
+
+
+.home {
+  margin-top: 0;
+
+  .navbar {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: transparent;
+
+    .nav {
+      > li > a, .open > a {
+        &:hover, &:focus {
+          background: rgba(255, 255, 255, 0.25);
+        }
+      }
+    }
+
+    .navbar-brand,
+    .navbar-nav > li > a {
+      color: white;
+    }
+  }
+}
+
+footer {
+  font-size: 1.5em;
+  color: rgba(255, 255, 255, 0.45);
+  text-align: center;
+  background: #000;
+  height: 85px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  line-height: 85px;
+}
+
+.intro-header {
+  text-align: center;
+  color: #f8f8f8;
+  background:image-url('cyclist_pack.jpg');
+  background-size: cover;
+  background-position: 0 -100px;
+
+  img {
+    opacity: 0.6;
+  }
+}
+
+.intro-message {
+  position: relative;
+  padding-top: 20%;
+  padding-bottom: 20%;
+}
+
+.intro-message > h1 {
+  margin: 0;
+  text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+  font-size: 4.2em;
+}
+
+.intro-divider {
+  width: 400px;
+  border-top: 1px solid #f8f8f8;
+  border-bottom: 1px solid rgba(0,0,0,0.2);
+}
+
+.intro-message > h3 {
+  text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
+  font-size: 2.3em;
+}
+
+@media(max-width:767px) {
+  .intro-message {
+    padding-bottom: 15%;
+  }
+
+  .intro-message > h1 {
+    font-size: 3em;
+  }
+
+  .intro-divider {
+    width: 100%;
+  }
+}

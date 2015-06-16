@@ -1,6 +1,7 @@
 class SessionsController < ApplicationController
 
   def new
+    @body_class = "login"
   end
 
   def create
@@ -10,7 +11,7 @@ class SessionsController < ApplicationController
       flash[:success] = "Successfully logged in!"
       redirect_to root_path
     else
-      flash[:errors] = "Invalid login. Please try again."
+      flash[:danger] = "Invalid login. Please try again."
       redirect_to :back
     end
   end

@@ -12,13 +12,15 @@
   <%= csrf_meta_tags %>
 </head>
 
-<%= render 'partials/navbar_v2' %>
-<%= render 'partials/flash_messages' %>
 
-<body class="<%=@body_class%>">
-<div>
+<body class="<%= @body_class %>">
+  <%= render 'partials/navbar_v2' %>
+  <%= render 'partials/flash_messages' %>
+
   <%= yield %>
-</div>
-
+  <footer>
+  Accidents and road hazards reported by cyclists for cyclists.
+  </footer>
 </body>
+
 </html>
