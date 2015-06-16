@@ -22,7 +22,7 @@ class SessionsController < ApplicationController
 
 
   def login_by_email
-    user = User.find_by(username: params[:session][:username])
+    user = User.find_by(email: params[:session][:email])
     
     if user && user.authenticate(params[:session][:password])
       session[:user_id] = user.id
@@ -43,7 +43,7 @@ class SessionsController < ApplicationController
       redirect_to root_path
     else
       flash[:danger] = "Invalid login. Please try again."
-      redirect_to :back
+      redirect_to root_path
     end
   end
   

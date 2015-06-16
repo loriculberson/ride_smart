@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  validates :username, :email, presence: true
+  validates :username, :password, :email, presence: true
   validates :username, uniqueness: true
   validates :email, uniqueness: true
   
@@ -15,7 +15,8 @@ class User < ActiveRecord::Base
       user.token      = auth.credentials.token
       user.password   = "password"
        
-      user.save
+      user.save!
+      user
     end
   end
 end

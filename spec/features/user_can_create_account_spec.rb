@@ -4,17 +4,19 @@ RSpec.describe type: :feature do
 
   def sign_up
     visit '/'
+    save_and_open_page
     click_on 'Sign Up'
   end
 
   it "can create an account without OAuth" do
     sign_up
-
+    click_on 'Create account with Email'
     expect(current_path).to eq(new_user_path)
   end
 
   it "sees successful flash message if user is created" do
     sign_up
+    click_on 'Create account with Email'
     fill_in("user[username]", with: "buttercup" )
     fill_in("user[password]", with: "password" )
     fill_in("user[password_confirmation]", with: "password" )
@@ -27,6 +29,7 @@ RSpec.describe type: :feature do
 
   it "sees an error message if user does not include email" do 
     sign_up
+    click_on 'Create account with Email'
     fill_in("user[username]", with: "buttercup" )
     fill_in("user[password]", with: "password" )
     fill_in("user[password_confirmation]", with: "password" )
