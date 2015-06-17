@@ -12,10 +12,10 @@ $(document).ready(function(){
   
   var map = new google.maps.Map(mapCanvas, mapOptions);
 
-  // google.maps.event.addListener(map, 'click', function(e){
-  //   alert('click');
-  //   console.log(e);
-  // })
+  google.maps.event.addListener(map, 'click', function(e){
+    alert('Drag the marker to the bike incident location');
+    console.log(e);
+  })
 
 //setting the map boundaries
   // var defaultBounds = new google.maps.LatLngBounds(
@@ -24,11 +24,11 @@ $(document).ready(function(){
   // );
 
 // //html input element for autocomplete search box
-//   var input = document.getElementById('autocomplete');
+  var input = document.getElementById('autocomplete');
 
 // // Create the autocomplete object
-//   // var autocomplete = new google.maps.places.Autocomplete(input);
-//   autocomplete.bindTo(map);
+  // var autocomplete = new google.maps.places.Autocomplete(input);
+  // autocomplete.bindTo(map);
 
 //   var infoWindow = new google.maps.InfoWindow();
   
