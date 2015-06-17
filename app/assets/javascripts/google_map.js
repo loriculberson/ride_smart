@@ -6,55 +6,77 @@ $(document).ready(function(){
   var mapOptions = {
     center: new google.maps.LatLng(39.7392, -104.9903),
     zoom: 13,
+    // scrollwheel: false,
     mapTypeId: google.maps.MapTypeId.ROADMAP
   };
   
   var map = new google.maps.Map(mapCanvas, mapOptions);
 
+  // google.maps.event.addListener(map, 'click', function(e){
+  //   alert('click');
+  //   console.log(e);
+  // })
+
 //setting the map boundaries
-  var defaultBounds = new google.maps.LatLngBounds(
-    new google.maps.LatLng(39.7392, -104.9903),
-    new google.maps.LatLng(39.7392, -104.9903)
-  );
+  // var defaultBounds = new google.maps.LatLngBounds(
+  //   new google.maps.LatLng(39.7392, -104.9903),
+  //   new google.maps.LatLng(39.7392, -104.9903)
+  // );
 
-//html input element for autocomplete search box
-  var input = document.getElementById('autocomplete');
-  map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+// //html input element for autocomplete search box
+//   var input = document.getElementById('autocomplete');
 
-  // autocomplete box and content
-  var acOptions = {
-    bounds:defaultBounds  
-  };
-// Create the autocomplete object
-  var autocomplete = new google.maps.places.Autocomplete(input, acOptions);
-  autocomplete.bindTo('bounds', map);
+// // Create the autocomplete object
+//   // var autocomplete = new google.maps.places.Autocomplete(input);
+//   autocomplete.bindTo(map);
 
-  var infoWindow = new google.maps.InfoWindow();
-  var marker = new google.maps.Marker({
-    map: map
+//   var infoWindow = new google.maps.InfoWindow();
+  
+//   var bikeEventPosition = new google.maps.LatLng(39.7392, -104.9903)
+  
+//   function createImage(url){
+//     var image = {
+//       url: url,
+//       // This marker is 32 pixels wide by 32 pixels tall.
+//       size: new google.maps.Size(32, 32),
+//       // The origin for this image is 0,0.
+//       origin: new google.maps.Point(0,0),
+//       // The anchor for this image is the base of the flagpole at 0,32.
+//       anchor: new google.maps.Point(0, 32)
+//   };
+//     return image;
+//   }
 
-  });
+//   function createCustomMarker(bikeEventPosition,map){
+//     marker = new google.maps.Marker({
+//       position: bikeEventPosition,
+//       map: map,
+//       // draggable: true;
+//       icon: createImage("/assets/bike.png")
+//     });
+//   }
 
-  google.maps.event.addListener(autocomplete, 'place_changed',function(){
-    infoWindow.close();
-    marker.setVisible(false);
-    var place = autocomplete.getPlace();
-    if (!place.geometry) {
-      window.alert( "Sorry, there are no places that meet your search");
-      return;
-    }
 
-    if (place.geometry.viewport) {
-      map.fitBounds(place.geometry.viewport);
-    } else {
-      map.setCenter(place.geometry.location);
-      map.setZoom(17);
-    }
-    marker.setIcon(({
-      
-    }))
+//   google.maps.event.addListener(autocomplete, 'place_changed',function(){
+//     infoWindow.close();
+//     marker.setVisible(false);
+//     var place = autocomplete.getPlace();
+//     if (!place.geometry) {
+//       window.alert( "Sorry, there are no places that meet your search");
+//       return;
+//     }
 
-  })
+//     if (place.geometry.viewport) {
+//       map.fitBounds(place.geometry.viewport);
+//     } else {
+//       map.setCenter(place.geometry.location);
+//       map.setZoom(17);
+//     }
+//     marker.setIcon(({
+
+//     }))
+
+//   })
 
   // });
   });
