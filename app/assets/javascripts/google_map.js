@@ -12,33 +12,35 @@ $(document).ready(function(){
   
   var map = new google.maps.Map(mapCanvas, mapOptions);
   
-  google.maps.event.addListener(map, 'click', function(event){
+   google.maps.event.addListener(map, 'click', function(event){
     alert('Drag marker to site of bike incident');
-    var marker = new google.maps.Marker({
+       var marker = new google.maps.Marker({
         position: event.latLng,
         map: map,
         draggable: true,
-        animation: google.maps.Animation.DROP
-        // icon: '/assets/bike_marker2.png'
+        animation: google.maps.Animation.DROP,
+        icon: '/assets/bike_marker2.png'
     });
-    return marker;
+
+    var bikeEventData = $('<div class="marker-info-win">' +
+     '<div class="marker-inner-win"><span class="info-content">' +
+     '<h2 class="marker-header"> New Marker </h2>'+
+     'Reporting a bike incident' + 
+     '</span' +
+     '</div></div>');
+
+    var bikeInfoWindow = new google.maps.InfoWindow();
+
+    //set the content of the infoWindow
+    bikeInfoWindow.setContent(bikeEventData[0]);
+
+    google.maps.event.addListener(marker, 'click', function(){
+      bikeInfoWindow.open(map, marker);
+      $('.modal').open()
+    });
   });
 
-  var bikeEventData = $('<div class="marker-info-win">' +
-   '<div class="marker-inner-win"><span class="info-content">' +
-   '<h2 class="marker-header"> New Marker </h2>'+
-   'Reporting a bike incident' + 
-   '</span' +
-   '</div></div>');
 
-  var bikeInfoWindow = new google.maps.InfoWindow();
-
-  //set the content of the infoWindow
-  bikeInfoWindow.setContent(bikeEventData[0]);
-
-  google.maps.event.addListener(marker, 'click', function(){
-    bikeInfoWindow.open(map, marker);
-  });
 
 //current user can remove their own markers
 
