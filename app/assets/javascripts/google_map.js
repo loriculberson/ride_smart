@@ -6,23 +6,42 @@ $(document).ready(function(){
   var mapOptions = {
     center: new google.maps.LatLng(39.7392, -104.9903),
     zoom: 13,
-    // scrollwheel: false,
+    scrollwheel: false,
     mapTypeId: google.maps.MapTypeId.ROADMAP
   };
   
   var map = new google.maps.Map(mapCanvas, mapOptions);
-
-// click on the map and the lat/long of that location is logged
+  
   google.maps.event.addListener(map, 'click', function(event){
-    alert('Drag the marker to the bike incident location');
+    alert('Drag marker to site of bike incident');
     var marker = new google.maps.Marker({
         position: event.latLng,
         map: map,
         draggable: true,
-        animation: google.maps.Animation.DROP,
-        icon:
+        animation: google.maps.Animation.DROP
+        // icon: '/assets/bike_marker2.png'
     });
+    return marker;
   });
+
+  var bikeEventData = $('<div class="marker-info-win">' +
+   '<div class="marker-inner-win"><span class="info-content">' +
+   '<h2 class="marker-header"> New Marker </h2>'+
+   'Reporting a bike incident' + 
+   '</span' +
+   '</div></div>');
+
+  var bikeInfoWindow = new google.maps.InfoWindow();
+
+  //set the content of the infoWindow
+  bikeInfoWindow.setContent(bikeEventData[0]);
+
+  google.maps.event.addListener(marker, 'click', function(){
+    bikeInfoWindow.open(map, marker);
+  });
+
+//current user can remove their own markers
+
 });
 
 
@@ -33,18 +52,6 @@ $(document).ready(function(){
   // var autocomplete = new google.maps.places.Autocomplete(input);
   // autocomplete.bindTo(map);
 
-//   var infoWindow = new google.maps.InfoWindow();
-
-
-  // function createCustomMarker(bikeEventPosition,map){
-    // var marker = new google.maps.Marker({
-    //   position: bikeEventPosition,
-    //   map: map,
-    //   animation: google.maps.Animation.DROP,
-      // draggable:true;
-      // icon: createImage("/assets/bike.png")
-    // });
-  // }
 
   
   // var bikeEventPosition = new google.maps.LatLng(39.7392, -104.9903)
