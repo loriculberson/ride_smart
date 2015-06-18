@@ -1,10 +1,11 @@
 class BikeEventsController < ApplicationController
 
   def index
+    @bike_events = BikeEvent.all
+    @bike_event = BikeEvent.new 
   end
 
   def new
-    @bike_event = BikeEvent.new
   end
 
   def create
@@ -15,6 +16,10 @@ class BikeEventsController < ApplicationController
     else
       render :new
     end
+  end
+
+  def edit
+    @bike_event = BikeEvent.find(5)
   end
 
 

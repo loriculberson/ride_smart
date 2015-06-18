@@ -22,12 +22,7 @@ $(document).ready(function(){
         icon: '/assets/bike_marker2.png'
     });
 
-    var bikeEventData = $('<div class="marker-info-win">' +
-     '<div class="marker-inner-win"><span class="info-content">' +
-     '<h2 class="marker-header"> New Marker </h2>'+
-     'Reporting a bike incident' + 
-     '</span' +
-     '</div></div>');
+    var bikeEventData = $($('#form-incident').html())
 
     var bikeInfoWindow = new google.maps.InfoWindow();
 
@@ -35,8 +30,8 @@ $(document).ready(function(){
     bikeInfoWindow.setContent(bikeEventData[0]);
 
     google.maps.event.addListener(marker, 'click', function(){
+      // $('.modal').open()
       bikeInfoWindow.open(map, marker);
-      $('.modal').open()
     });
   });
 
