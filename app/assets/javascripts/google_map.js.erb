@@ -29,10 +29,15 @@ $(document).ready(function(){
     var bikeInfoWindow = new google.maps.InfoWindow();
 
     //set the content of the infoWindow
-    bikeInfoWindow.setContent(bikeEventData[0]);
+    bikeInfoWindow.setContent(bikeEventData[0]);    
 
     google.maps.event.addListener(marker, 'click', function(){
+      marker.draggable = false;
+
+      // id for lat and long hidden fields, store marker position
       bikeInfoWindow.open(map, marker);
+      $('#bike_event_latitude').val(marker.position.A);
+      $('#bike_event_longitude').val(marker.position.F);
     });
      
     //current user can remove their own markers
