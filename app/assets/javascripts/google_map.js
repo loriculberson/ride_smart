@@ -12,49 +12,55 @@ $(document).ready(function(){
   
   var map = new google.maps.Map(mapCanvas, mapOptions);
 
-  google.maps.event.addListener(map, 'click', function(e){
+// click on the map and the lat/long of that location is logged
+  google.maps.event.addListener(map, 'click', function(event){
     alert('Drag the marker to the bike incident location');
-    console.log(e);
-  })
+    var marker = new google.maps.Marker({
+        position: event.latLng,
+        map: map,
+        draggable: true,
+        animation: google.maps.Animation.DROP,
+        icon:
+    });
+  });
+});
 
-//setting the map boundaries
-  // var defaultBounds = new google.maps.LatLngBounds(
-  //   new google.maps.LatLng(39.7392, -104.9903),
-  //   new google.maps.LatLng(39.7392, -104.9903)
-  // );
 
 // //html input element for autocomplete search box
-  var input = document.getElementById('autocomplete');
+  // var input = document.getElementById('autocomplete');
 
 // // Create the autocomplete object
   // var autocomplete = new google.maps.places.Autocomplete(input);
   // autocomplete.bindTo(map);
 
 //   var infoWindow = new google.maps.InfoWindow();
-  
-//   var bikeEventPosition = new google.maps.LatLng(39.7392, -104.9903)
-  
-//   function createImage(url){
-//     var image = {
-//       url: url,
-//       // This marker is 32 pixels wide by 32 pixels tall.
-//       size: new google.maps.Size(32, 32),
-//       // The origin for this image is 0,0.
-//       origin: new google.maps.Point(0,0),
-//       // The anchor for this image is the base of the flagpole at 0,32.
-//       anchor: new google.maps.Point(0, 32)
-//   };
-//     return image;
-//   }
 
-//   function createCustomMarker(bikeEventPosition,map){
-//     marker = new google.maps.Marker({
-//       position: bikeEventPosition,
-//       map: map,
-//       // draggable: true;
-//       icon: createImage("/assets/bike.png")
-//     });
-//   }
+
+  // function createCustomMarker(bikeEventPosition,map){
+    // var marker = new google.maps.Marker({
+    //   position: bikeEventPosition,
+    //   map: map,
+    //   animation: google.maps.Animation.DROP,
+      // draggable:true;
+      // icon: createImage("/assets/bike.png")
+    // });
+  // }
+
+  
+  // var bikeEventPosition = new google.maps.LatLng(39.7392, -104.9903)
+  
+  // function createImage(url){
+  //   var image = {
+  //     url: url,
+  //     // This marker is 32 pixels wide by 32 pixels tall.
+  //     size: new google.maps.Size(32, 32),
+  //     // The origin for this image is 0,0.
+  //     origin: new google.maps.Point(0,0),
+  //     // The anchor for this image is the base of the flagpole at 0,32.
+  //     anchor: new google.maps.Point(0, 32)
+  // };
+  //   return image;
+  // }
 
 
 //   google.maps.event.addListener(autocomplete, 'place_changed',function(){
@@ -79,7 +85,7 @@ $(document).ready(function(){
 //   })
 
   // });
-  });
+
 
 
 
