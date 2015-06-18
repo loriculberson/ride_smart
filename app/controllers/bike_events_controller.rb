@@ -1,8 +1,8 @@
 class BikeEventsController < ApplicationController
 
   def index
-    @bike_events = BikeEvent.all
     @bike_event = BikeEvent.new 
+    @bike_events = BikeEvent.all
   end
 
   def new
