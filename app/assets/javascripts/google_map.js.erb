@@ -21,7 +21,7 @@ $(document).ready(function(){
         map: map,
         draggable: true,
         animation: google.maps.Animation.DROP,
-        icon: <%= asset_path('bike_marker2.png') %>
+        icon: "<%= asset_path('bike_marker2.png') %>"
     });
 
     var bikeEventData = $($('#form-incident').html())
