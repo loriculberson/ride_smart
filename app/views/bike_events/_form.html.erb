@@ -3,9 +3,9 @@
   <%= render "partials/bike_events_errors" %>
   <div>
     <%= f.label :event_kind %><br>
-    <%= f.check_box :event_kind %> Accident<br>
-    <%= f.check_box :event_kind %> Road Hazard<br>
-    <%= f.check_box :event_kind %> Other<br>
+    <%= f.check_box :event_kind, value: "Accident" %> Accident<br>
+    <%= f.check_box :event_kind, value: "Road Hazard" %> Road Hazard<br>
+    <%= f.check_box :event_kind, value: "Other" %> Other<br>
   </div>
 
    <div>
@@ -25,8 +25,8 @@
 
   <div>
    <%= f.hidden_field :user_id, value: current_user.id%>
-   <%= f.hidden_field :latitude, value: 39.7392%>
-    <%= f.hidden_field :longitude, value: -104.9903 %>
+   <%#= f.hidden_field :latitude  %>
+    <%#= f.hidden_field :longitude  %>
     <%= f.submit "Report", class: "remove btn btn-primary" %>
   </div>
 <% end %>

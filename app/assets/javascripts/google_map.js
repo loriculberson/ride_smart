@@ -10,7 +10,10 @@ $(document).ready(function(){
   };
   
   var map = new google.maps.Map(mapCanvas, mapOptions);
-  
+
+//populating the map with markers FIRST
+
+// click on map and add a pin
    google.maps.event.addListener(map, 'click', function(event){
     alert('Drag marker to site of bike incident');
        var marker = new google.maps.Marker({
@@ -21,18 +24,18 @@ $(document).ready(function(){
         icon: '/assets/bike_marker2.png'
     });
 
-    // var bikeEventData = $($('#form-incident').html())
+    var bikeEventData = $($('#form-incident').html())
 
     var bikeInfoWindow = new google.maps.InfoWindow();
 
     //set the content of the infoWindow
-    // bikeInfoWindow.setContent(bikeEventData[0]);
+    bikeInfoWindow.setContent(bikeEventData[0]);
 
-    // google.maps.event.addListener(marker, 'click', function(){
-    //   bikeInfoWindow.open(map, marker);
-    // });
+    google.maps.event.addListener(marker, 'click', function(){
+      bikeInfoWindow.open(map, marker);
+    });
      
-//current user can remove their own markers
+    //current user can remove their own markers
     var removeMarker = bikeEventData.find('.remove')[0];
     google.maps.event.addDomListener(removeMarker, 'click', function(event) {
       marker.setMap(null);
