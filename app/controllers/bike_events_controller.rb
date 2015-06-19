@@ -23,12 +23,9 @@ class BikeEventsController < ApplicationController
     @bike_event = BikeEvent.find(5)
   end
 
-
   private
   def bike_event_params
     params.require(:bike_event).permit(:event_kind, :occurred_at, :details,
                                         :user_id, :latitude, :longitude )
   end
-
-
 end

@@ -13,16 +13,18 @@ $(document).ready(function(){
 
 //populating the map with markers FIRST
 
+fetchMarkers(map);
+
 // click on map and add a pin
-   google.maps.event.addListener(map, 'click', function(event){
-    alert('Drag marker to site of bike incident');
-       var marker = new google.maps.Marker({
-        position: event.latLng,
-        map: map,
-        draggable: true,
-        animation: google.maps.Animation.DROP,
-        icon: "<%= asset_path('bike_marker2.png') %>"
-    });
+  google.maps.event.addListener(map, 'click', function(event){
+   alert('Drag marker to site of bike incident');
+   var marker = new google.maps.Marker({
+     position: event.latLng,
+     map: map,
+     draggable: true,
+     animation: google.maps.Animation.DROP,
+     icon: "<%= asset_path('bike_marker2.png') %>"
+   });
 
     var bikeEventData = $($('#form-incident').html())
 
@@ -47,12 +49,21 @@ $(document).ready(function(){
     });
   });
 });
-
 // Create a function that:
 // Make an ajax get request to '/bike_events'
-function fetchMarkers() {
-  $.get('/bike_events', 
-    )
+function fetchMarkers(map) {
+  $.get('/bike_events', function(data) {
+    data.forEach(function(bikeEvent){
+      var latLng = {lat: +bikeEvent.latitude, lng: +bikeEvent.longitude};
+      new google.maps.Marker({
+        position: latLng,
+        map: map,
+        draggable: false,
+        animation: google.maps.Animation.DROP,
+        icon: "<%= asset_path('bike_marker2.png') %>"
+      });
+    })
+  });
 }
 // If 200 (success)
 
