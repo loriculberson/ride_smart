@@ -44,8 +44,27 @@ $(document).ready(function(){
     var removeMarker = bikeEventData.find('.remove')[0];
     google.maps.event.addDomListener(removeMarker, 'click', function(event) {
       marker.setMap(null);
-    })
-
+    });
   });
-
 });
+
+// Create a function that:
+// Make an ajax get request to '/bike_events'
+function fetchMarkers() {
+  $.get('/bike_events', 
+    )
+}
+// If 200 (success)
+
+
+//   For each marker in the server repsonse
+//     ?? how do we plug a marker into google maps
+
+// var response; //=> undefined
+
+// $.get('/lori.com', function(data) { // data = { name: 'wil', email: 'wfaurot@hi.com' }
+//   response = data;
+//   console.log(data);
+// });
+
+// console.log(response); //=> undefined
