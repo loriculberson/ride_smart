@@ -27,6 +27,7 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'google-api-client'
 gem 'omniauth-google-oauth2'
 gem 'rails_12factor', '~> 0.0.3'
+gem 'responders'
 
 # Use Unicorn as the app server
 # gem 'unicorn'

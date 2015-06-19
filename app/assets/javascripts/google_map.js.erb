@@ -13,16 +13,18 @@ $(document).ready(function(){
 
 //populating the map with markers FIRST
 
+fetchMarkers(map);
+
 // click on map and add a pin
-   google.maps.event.addListener(map, 'click', function(event){
-    alert('Drag marker to site of bike incident');
-       var marker = new google.maps.Marker({
-        position: event.latLng,
-        map: map,
-        draggable: true,
-        animation: google.maps.Animation.DROP,
-        icon: "<%= asset_path('bike_marker2.png') %>"
-    });
+  google.maps.event.addListener(map, 'click', function(event){
+   alert('Drag marker to site of bike incident');
+   var marker = new google.maps.Marker({
+     position: event.latLng,
+     map: map,
+     draggable: true,
+     animation: google.maps.Animation.DROP,
+     icon: "<%= asset_path('bike_marker2.png') %>"
+   });
 
     var bikeEventData = $($('#form-incident').html())
 
@@ -44,8 +46,36 @@ $(document).ready(function(){
     var removeMarker = bikeEventData.find('.remove')[0];
     google.maps.event.addDomListener(removeMarker, 'click', function(event) {
       marker.setMap(null);
-    })
-
+    });
   });
-
 });
+// Create a function that:
+// Make an ajax get request to '/bike_events'
+function fetchMarkers(map) {
+  $.get('/bike_events', function(data) {
+    data.forEach(function(bikeEvent){
+      var latLng = {lat: +bikeEvent.latitude, lng: +bikeEvent.longitude};
+      new google.maps.Marker({
+        position: latLng,
+        map: map,
+        draggable: false,
+        animation: google.maps.Animation.DROP,
+        icon: "<%= asset_path('bike_marker2.png') %>"
+      });
+    })
+  });
+}
+// If 200 (success)
+
+
+//   For each marker in the server repsonse
+//     ?? how do we plug a marker into google maps
+
+// var response; //=> undefined
+
+// $.get('/lori.com', function(data) { // data = { name: 'wil', email: 'wfaurot@hi.com' }
+//   response = data;
+//   console.log(data);
+// });
+
+// console.log(response); //=> undefined
