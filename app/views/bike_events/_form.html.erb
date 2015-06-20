@@ -1,4 +1,3 @@
-<% if current_user %>
   <%= form_for(@bike_event, url: bike_events_path, method: :post, role:"form") do |f| %>
 
     <%= render "partials/bike_events_errors" %>
@@ -20,11 +19,9 @@
     </div>
 
     <div>
-     <%= f.hidden_field :user_id, value: current_user.id%>
       <span id="latitude"> <%= f.hidden_field :latitude  %></span> 
       <span id="longitude"> <%= f.hidden_field :longitude  %></span> 
       
       <%= f.submit "Report", class: "remove btn btn-primary" %>
     </div>
   <% end %>
-<% end %>

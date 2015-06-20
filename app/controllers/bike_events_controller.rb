@@ -1,5 +1,6 @@
 class BikeEventsController < ApplicationController
   respond_to :json, :html
+  before_action :authorize_user, only: [:new, :create, :edit, :update, :delete]
 
   def index
     @bike_event ||= BikeEvent.new 
@@ -10,7 +11,7 @@ class BikeEventsController < ApplicationController
   end
 
   def create
-    @bike_event = BikeEvent.new(bike_event_params)
+    @bike_event = current_user.bike_events.build(bike_event_params)
     if @bike_event.save
       flash[:success] = "Thanks for keeping our roads safe."
       redirect_to bike_events_path
@@ -20,7 +21,6 @@ class BikeEventsController < ApplicationController
   end
 
   def edit
-    @bike_event = BikeEvent.find(5)
   end
 
   private
@@ -28,4 +28,6 @@ class BikeEventsController < ApplicationController
     params.require(:bike_event).permit(:event_kind, :occurred_at, :details,
                                         :user_id, :latitude, :longitude )
   end
+
+
 end
