@@ -1,15 +1,50 @@
 $(document).ready(function(){
 // setting up the map, the map options and the starting position
+
   var mapCanvas = document.getElementById('map-canvas');
   
   var mapOptions = {
-    center: new google.maps.LatLng(39.7392, -104.9903),
     zoom: 13,
     scrollwheel: false,
     mapTypeId: google.maps.MapTypeId.ROADMAP
   };
-  
+
+  var initialLocation;
+  var denver = new google.maps.LatLng(39.7392, -104.9903)
   var map = new google.maps.Map(mapCanvas, mapOptions);
+
+//W3C Geolocation preferred
+  if(navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+
+      var initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+      
+      map.setCenter(initialLocation);
+
+      var youMarker = new google.maps.Marker({
+      position: initialLocation, 
+      map: map, 
+  });
+
+    }, function() {
+      handleNoGeolocation(true);
+    });
+  } else {
+
+  //if browser doesn't support Geolocation
+    handleNoGeolocation(false);
+  }
+
+  function handleNoGeolocation(errorFlag) {
+    if (errorFlag) {
+      alert("Geolocation service failed");
+      initialLocation = denver;
+    } else {
+      alert("Your browser doesn't support geolocation. We've placed you in Denver.");
+      initialLocation = denver;
+    }
+    map.setCenter(initialLocation);
+  }
 
 //populating the map with markers FIRST
 
@@ -65,17 +100,17 @@ function fetchMarkers(map) {
     })
   });
 }
-// If 200 (success)
+// // If 200 (success)
 
 
-//   For each marker in the server repsonse
-//     ?? how do we plug a marker into google maps
+// //   For each marker in the server repsonse
+// //     ?? how do we plug a marker into google maps
 
-// var response; //=> undefined
+// // var response; //=> undefined
 
-// $.get('/lori.com', function(data) { // data = { name: 'wil', email: 'wfaurot@hi.com' }
-//   response = data;
-//   console.log(data);
-// });
+// // $.get('/lori.com', function(data) { // data = { name: 'wil', email: 'wfaurot@hi.com' }
+// //   response = data;
+// //   console.log(data);
+// // });
 
-// console.log(response); //=> undefined
+// // console.log(response); //=> undefined
