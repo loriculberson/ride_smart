@@ -1,0 +1,33 @@
+  <h4>Type of Bike Incident</h4>
+
+  <div>
+    <%= f.label(:accident) do %>
+      <%= f.radio_button(:event_kind, "Accident") %> Accident
+    <% end %> 
+  </div>
+
+  <div>
+    <%= f.label :road_hazard do %>
+      <%= f.radio_button(:event_kind, "Road Hazard") %> Road Hazard
+    <% end %>
+  </div>
+
+  <div>
+    <%= f.label :accident2 do %>
+      <%= f.radio_button(:event_kind, "Accident as a result of a road hazard") %> Accident as a result of a road hazard
+    <% end %>
+  </div>
+
+  <div>
+    <%= f.label :animals do %>
+    <%= f.radio_button(:event_kind, "Freak, wildlife incident") %> Freak, wildlife incident
+    <% end %>
+  </div>
+
+  <div>
+    <%= f.label :other do %>
+    <%= f.radio_button(:event_kind, "Other") %> Other 
+    <% end %>
+  </div>
+
+

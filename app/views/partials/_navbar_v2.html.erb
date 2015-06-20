@@ -17,13 +17,17 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Map View <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
             <li><a href="/bike_events">All Bike Incidents</a></li>
+
+            <!-- until the filter works....
             <li class="divider"></li>
             <li><a href="#">Accidents</a></li>
             <li><a href="#">Road Hazards</a></li>
             <li><a href="#">Other</a></li>
+            -->
           </ul>
         </li>
-        <li> <%= link_to "Report an Incident", new_bike_event_path %> </li>
+        <!--if current user go to bike events path, else to to login or create account-->
+        <li> <%= link_to "Report an Incident", bike_events_path %> </li>
 
           <% if current_user %>
             <%= render 'partials/navbar_logged_in_user' %>

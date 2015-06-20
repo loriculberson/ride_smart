@@ -1,12 +1,7 @@
 <%= form_for(@bike_event, url: bike_events_path, method: :post, role:"form") do |f| %>
 
   <%= render "partials/bike_events_errors" %>
-  <div>
-    <%= f.label :event_kind %><br>
-    <%= f.check_box :event_kind, value:"Accident" %> Accident<br>
-    <%= f.check_box :event_kind, value: "Road Hazard" %> Road Hazard<br>
-    <%= f.check_box :event_kind, value: "Other" %> Other<br>
-  </div>
+  <%= render partial: "bike_events/incident_types", locals: { f: f} %>
 
    <div>
     <%= f.label :incident_date %>
@@ -15,7 +10,7 @@
 
   <div>
     <%= f.label :details%>
-    <%= f.text_area :details %>
+    <%= f.text_area :details, cols: 40, rows: 7  %>
   </div>
 
   <div>
@@ -27,6 +22,7 @@
    <%= f.hidden_field :user_id, value: current_user.id%>
     <span id="latitude"> <%= f.hidden_field :latitude  %></span> 
     <span id="longitude"> <%= f.hidden_field :longitude  %></span> 
+    
     <%= f.submit "Report", class: "remove btn btn-primary" %>
   </div>
 <% end %>
