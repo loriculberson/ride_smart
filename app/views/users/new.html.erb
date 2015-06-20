@@ -6,37 +6,41 @@
 
         <%= render "partials/user_errors" %>
 
-        <%= f.label :username %>
-        <%= f.text_field :username, autofocus: true ,class: "form-control"%><br>
+              <div>
+                <%= f.label :username %>
+                <%= f.text_field :username, autofocus: true ,class: "form-control"%><br>
+              </div>
 
-        <div>
-          <%= f.label :password%>
-          <%= f.password_field  :password %>
-        </div>
+              <div>
+                <%= f.label :password%>
+                <%= f.password_field  :password %>
+              </div>
 
-        <div>
-          <%= f.label :password_confirmation%>
-          <%= f.password_field  :password_confirmation %>
-        </div>
+              <div>
+                <%= f.label :password_confirmation%>
+                <%= f.password_field  :password_confirmation %>
+              </div>
 
-        <div>
-          <%= f.label :email%>
-          <%= f.text_field :email %>
-        </div>
+              <div>
+                <%= f.label :email%>
+                <%= f.text_field :email %>
+              </div>
 
-        <div>
-          <%= f.label :twitter_nickname%>
-          <%= f.text_field :nickname %>
-        </div>
+              <div>
+                <%= f.label :twitter_nickname%>
+                <%= f.text_field :nickname %>
+              </div>
 
-        <div>
-          <%= f.label :image, "Attach an Image" %><br />
-          <%= f.file_field :image_url %>
-        </div>
+              <div>
+                <%= f.label :image, "Attach an Image" %><br />
+                <%= f.file_field :image_url %>
+              </div>
+        
 
-          <div>
-            <%= f.submit "Create Account", class: "btn btn-primary" %>
-          </div>
+            <div>
+              <%= f.submit "Create Account", class: "btn btn-primary" %>
+            </div>
+    
         <% end %>
     </div>  
 </div>`

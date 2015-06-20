@@ -2,7 +2,7 @@ class BikeEventsController < ApplicationController
   respond_to :json, :html
 
   def index
-    @bike_event = BikeEvent.new 
+    @bike_event ||= BikeEvent.new 
     respond_with BikeEvent.all
   end
 
