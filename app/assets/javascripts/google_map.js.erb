@@ -1,7 +1,7 @@
 $(document).ready(function(){
 // setting up the map, the map options and the starting position
 
-  var mapCanvas = document.getElementById('map-canvas');
+  var mapCanvas = $('#map-canvas');
   
   var mapOptions = {
     zoom: 13,
@@ -11,7 +11,7 @@ $(document).ready(function(){
 
   var initialLocation;
   var denver = new google.maps.LatLng(39.7392, -104.9903)
-  var map = new google.maps.Map(mapCanvas, mapOptions);
+  var map = new google.maps.Map(mapCanvas[0], mapOptions);
 
 //W3C Geolocation preferred
   if(navigator.geolocation) {
@@ -50,6 +50,26 @@ $(document).ready(function(){
   fetchMarkers(map);
 
 var loggedInUser = function(event){
+  function bindEvents() {
+    var bikeEventForm = $(bikeInfoWindow.getContent());
+
+    //if there are errors in the new bike event form 
+    bikeEventForm.on('ajax:error', function(event, xhr, status, error) {
+      var errorData = xhr.responseText;
+      bikeInfoWindow.setContent(errorData);
+      // NOTE: This does not work;
+      bindEvents();
+    })
+
+    //successful creation of a marker, hit create action, 
+    //then get the show view content = responseData
+    bikeEventForm.on('ajax:success', function(event, responseData){
+      bikeInfoWindow.close();
+      bikeInfoWindow.setContent(responseData);
+      bindEvents();
+    })
+  }
+
   alert('Drag marker to site of bike incident');
   var marker = new google.maps.Marker({
    position: event.latLng,
@@ -59,19 +79,14 @@ var loggedInUser = function(event){
    icon: "<%= asset_path('bike_marker2.png') %>"
    });
 
-  var bikeEventData = $($('#form-incident').html())
+  var initialBikeEventForm = $($('#form-incident').html())
 
   var bikeInfoWindow = new google.maps.InfoWindow();
 
   //set the content of the infoWindow
-  bikeInfoWindow.setContent(bikeEventData[0]);
+  bikeInfoWindow.setContent(initialBikeEventForm[0]);
  
-  bikeEventData.on('ajax:error', function(event, xhr, status, error) {
-    var errorData = xhr.responseText;
-
-    bikeInfoWindow.setContent(errorData);
-  })
-
+  bindEvents();
 
   google.maps.event.addListener(marker, 'click', function(){
     marker.draggable = false;

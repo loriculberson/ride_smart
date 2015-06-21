@@ -21,6 +21,14 @@
   display: none;
 }
 
+.field_with_errors {
+  display: inline;
+}
+
+#new_bike_event label {
+  vertical-align: top;
+}
+
  // border-radius: 16px 16px;
  // border-color: #fff;
  // border-style: solid;
