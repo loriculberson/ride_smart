@@ -8,15 +8,15 @@ class BikeEventsController < ApplicationController
   end
 
   def new
+    @bike_event = BikeEvent.new 
   end
 
   def create
     @bike_event = current_user.bike_events.new(bike_event_params)
     if @bike_event.save
-      flash[:success] = "Thanks for keeping our roads safe."
-      redirect_to bike_events_path
+      render partial: 'show', locals: { bike_event: @bike_event }, layout: false
     else
-      render :new
+      render partial: 'form', status: 422, layout: false
     end
   end
 

@@ -2,19 +2,13 @@
 
   <div>
     <%= f.label(:accident) do %>
-      <%= f.radio_button(:event_kind, "Accident") %> Accident
+      <%= f.radio_button(:event_kind, "Accident", checked: true) %> Accident
     <% end %> 
   </div>
 
   <div>
     <%= f.label :road_hazard do %>
       <%= f.radio_button(:event_kind, "Road Hazard") %> Road Hazard
-    <% end %>
-  </div>
-
-  <div>
-    <%= f.label :accident2 do %>
-      <%= f.radio_button(:event_kind, "Accident as a result of a road hazard") %> Accident as a result of a road hazard
     <% end %>
   </div>
 

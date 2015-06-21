@@ -1,4 +1,4 @@
-  <%= form_for(@bike_event, url: bike_events_path, method: :post, role:"form") do |f| %>
+  <%= form_for(@bike_event, url: bike_events_path, remote: true, method: :post, role:"form") do |f| %>
 
     <%= render "partials/bike_events_errors" %>
     <%= render partial: "bike_events/incident_types", locals: { f: f} %>
@@ -10,7 +10,7 @@
 
     <div>
       <%= f.label :details%>
-      <%= f.text_area :details, cols: 40, rows: 7  %>
+      <%= f.text_area :details, cols: 58, rows: 4  %>
     </div>
 
     <div>
