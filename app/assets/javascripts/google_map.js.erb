@@ -70,7 +70,6 @@ var loggedInUser = function(event){
     })
   }
 
-  alert('Drag marker to site of bike incident');
   var marker = new google.maps.Marker({
    position: event.latLng,
    map: map,
@@ -99,12 +98,13 @@ var loggedInUser = function(event){
   });
    
   //current user can remove their own markers
-  /*
-  var removeMarker = bikeEventData.find('.remove')[0];
+  
+  var removeMarker = bikeEventDataForm.find('.remove-marker')[0];
+  debugger;
   google.maps.event.addDomListener(removeMarker, 'click', function(event) {
     marker.setMap(null);
   });
-  */
+  
 };
 
 var loggedOutUserClick = function(event){
@@ -123,7 +123,6 @@ if ( window.hasOwnProperty('current_user') ) {
 }
 
 });
-// Create a function that:
 // Make an ajax get request to '/bike_events'
 function fetchMarkers(map) {
   $.get('/bike_events', function(data) {

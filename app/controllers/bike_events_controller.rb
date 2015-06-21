@@ -23,6 +23,13 @@ class BikeEventsController < ApplicationController
   def edit
   end
 
+  def destroy
+    bike_event = BikeEvent.find(params[:id])
+    bike_event.delete
+    redirect_to bike_events_path
+    # ajax call to destroy means no need to redirect
+  end
+
   private
   def bike_event_params
     params.require(:bike_event).permit(:event_kind, :occurred_at, :details,
