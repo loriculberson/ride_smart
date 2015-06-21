@@ -1,5 +1,14 @@
-<p>  <%= bike_event.user.username %> reports: <br>
+<p> <%= bike_event.user.username %> reports: <br>
 <%= bike_event.event_kind %> on 
 <%= bike_event.date %> @
 <%= bike_event.time %></p>
 <p> Details: <%= bike_event.details %> </p>
+
+
+<div class="remove-marker">
+  <%=link_to "Remove marker", bike_event_path(bike_event.id), method: :delete%>
+</div>
+<!--<div class="remove-marker">
+  <%=link_to "Remove marker", bike_events_path(bike_event.id), method: :delete %>
+</div>
+

@@ -19,15 +19,13 @@ class SessionsController < ApplicationController
   end
 
   private
-
-
   def login_by_email
     user = User.find_by(email: params[:session][:email])
     
     if user && user.authenticate(params[:session][:password])
       session[:user_id] = user.id
       flash[:success] = "Successfully logged in!"
-      redirect_to root_path
+      redirect_to bike_events_path
     else
       flash[:danger] = "Invalid login. Please try again."
       redirect_to :back
