@@ -16,7 +16,6 @@ $(document).ready(function(){
 //W3C Geolocation preferred
   if(navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
-
       var initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
       
       map.setCenter(initialLocation);
@@ -24,7 +23,7 @@ $(document).ready(function(){
       var youMarker = new google.maps.Marker({
       position: initialLocation, 
       map: map, 
-  });
+    });
 
     }, function() {
       handleNoGeolocation(true);
@@ -48,42 +47,56 @@ $(document).ready(function(){
 
 //populating the map with markers FIRST
 
-fetchMarkers(map);
+  fetchMarkers(map);
 
-
-// click on map and add a pin
-  google.maps.event.addListener(map, 'click', function(event){
-   alert('Drag marker to site of bike incident');
-   var marker = new google.maps.Marker({
-     position: event.latLng,
-     map: map,
-     draggable: true,
-     animation: google.maps.Animation.DROP,
-     icon: "<%= asset_path('bike_marker2.png') %>"
+var loggedInUser = function(event){
+  alert('Drag marker to site of bike incident');
+  var marker = new google.maps.Marker({
+   position: event.latLng,
+   map: map,
+   draggable: true,
+   animation: google.maps.Animation.DROP,
+   icon: "<%= asset_path('bike_marker2.png') %>"
    });
 
-    var bikeEventData = $($('#form-incident').html())
+  var bikeEventData = $($('#form-incident').html())
 
-    var bikeInfoWindow = new google.maps.InfoWindow();
+  var bikeInfoWindow = new google.maps.InfoWindow();
 
-    //set the content of the infoWindow
-    bikeInfoWindow.setContent(bikeEventData[0]);    
+  //set the content of the infoWindow
+  bikeInfoWindow.setContent(bikeEventData[0]);    
 
-    google.maps.event.addListener(marker, 'click', function(){
-      marker.draggable = false;
+  google.maps.event.addListener(marker, 'click', function(){
+    marker.draggable = false;
 
-      // id for lat and long hidden fields, store marker position
-      bikeInfoWindow.open(map, marker);
-      $('#bike_event_latitude').val(marker.position.A);
-      $('#bike_event_longitude').val(marker.position.F);
-    });
-     
-    //current user can remove their own markers
-    var removeMarker = bikeEventData.find('.remove')[0];
-    google.maps.event.addDomListener(removeMarker, 'click', function(event) {
-      marker.setMap(null);
-    });
+    // id for lat and long hidden fields, store marker position
+    bikeInfoWindow.open(map, marker);
+    $('#bike_event_latitude').val(marker.position.A);
+    $('#bike_event_longitude').val(marker.position.F);
   });
+   
+  //current user can remove their own markers
+  var removeMarker = bikeEventData.find('.remove')[0];
+  google.maps.event.addDomListener(removeMarker, 'click', function(event) {
+    marker.setMap(null);
+  });
+};
+
+var loggedOutUserClick = function(event){
+  if (confirm('Would you like to login?') ) {
+    window.location = "/login";
+  } else {
+    alert("You must login to add a bike incident to the map.")
+  }
+}
+
+if ( window.hasOwnProperty('current_user') ) {
+// click on map and add a pin
+  google.maps.event.addListener(map, 'click', loggedInUser);
+} else {
+  google.maps.event.addListener(map, 'click', loggedOutUserClick);
+}
+
 });
 // Create a function that:
 // Make an ajax get request to '/bike_events'
@@ -101,17 +114,3 @@ function fetchMarkers(map) {
     })
   });
 }
-// // If 200 (success)
-
-
-// //   For each marker in the server repsonse
-// //     ?? how do we plug a marker into google maps
-
-// // var response; //=> undefined
-
-// // $.get('/lori.com', function(data) { // data = { name: 'wil', email: 'wfaurot@hi.com' }
-// //   response = data;
-// //   console.log(data);
-// // });
-
-// // console.log(response); //=> undefined

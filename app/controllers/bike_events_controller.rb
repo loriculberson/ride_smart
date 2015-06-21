@@ -11,7 +11,7 @@ class BikeEventsController < ApplicationController
   end
 
   def create
-    @bike_event = current_user.bike_events.build(bike_event_params)
+    @bike_event = current_user.bike_events.new(bike_event_params)
     if @bike_event.save
       flash[:success] = "Thanks for keeping our roads safe."
       redirect_to bike_events_path
