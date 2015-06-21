@@ -64,7 +64,14 @@ var loggedInUser = function(event){
   var bikeInfoWindow = new google.maps.InfoWindow();
 
   //set the content of the infoWindow
-  bikeInfoWindow.setContent(bikeEventData[0]);    
+  bikeInfoWindow.setContent(bikeEventData[0]);
+ 
+  bikeEventData.on('ajax:error', function(event, xhr, status, error) {
+    var errorData = xhr.responseText;
+
+    bikeInfoWindow.setContent(errorData);
+  })
+
 
   google.maps.event.addListener(marker, 'click', function(){
     marker.draggable = false;
@@ -73,13 +80,16 @@ var loggedInUser = function(event){
     bikeInfoWindow.open(map, marker);
     $('#bike_event_latitude').val(marker.position.A);
     $('#bike_event_longitude').val(marker.position.F);
+
   });
    
   //current user can remove their own markers
+  /*
   var removeMarker = bikeEventData.find('.remove')[0];
   google.maps.event.addDomListener(removeMarker, 'click', function(event) {
     marker.setMap(null);
   });
+  */
 };
 
 var loggedOutUserClick = function(event){
