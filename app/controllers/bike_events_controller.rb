@@ -8,6 +8,7 @@ class BikeEventsController < ApplicationController
   end
 
   def new
+    @bike_event = BikeEvent.new 
   end
 
   def create
@@ -16,7 +17,7 @@ class BikeEventsController < ApplicationController
       flash[:success] = "Thanks for keeping our roads safe."
       redirect_to bike_events_path
     else
-      render :new
+      render partial: 'form', status: 422, layout: false
     end
   end
 
