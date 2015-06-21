@@ -6,9 +6,12 @@
 
 
 <div class="remove-marker">
-  <%=link_to "Remove marker", bike_event_path(bike_event.id), method: :delete%>
+  <%=link_to "Remove marker", bike_event_path(bike_event.id), remote: true, method: :delete, class: "remove-marker"%>
 </div>
-<!--<div class="remove-marker">
-  <%=link_to "Remove marker", bike_events_path(bike_event.id), method: :delete %>
-</div>
+
+<!-- <div class="remove-marker">
+  <%#link_to "Remove marker", bike_event_path(bike_event.id) , class: "remove-marker"%>
+
+  Must set up a click listener on the document. Then must write an ajax request, that inclues the type: delete and the url
+</div> -->
 
