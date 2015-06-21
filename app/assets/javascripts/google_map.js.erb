@@ -49,7 +49,9 @@ $(document).ready(function(){
 
   fetchMarkers(map);
 
-var loggedInUser = function(event){
+if ( window.hasOwnProperty('current_user') ) {
+// click on map and add a pin
+  google.maps.event.addListener(map, 'click', function loggedInUser(event){
   function bindEvents() {
     var bikeEventForm = $(bikeInfoWindow.getContent());
 
@@ -67,6 +69,7 @@ var loggedInUser = function(event){
       bikeInfoWindow.close();
       bikeInfoWindow.setContent(responseData);
       bindEvents();
+      debugger
     })
   }
 
@@ -76,7 +79,7 @@ var loggedInUser = function(event){
    draggable: true,
    animation: google.maps.Animation.DROP,
    icon: "<%= asset_path('bike_marker2.png') %>"
-   });
+  });
 
   var initialBikeEventForm = $($('#form-incident').html())
 
@@ -89,37 +92,32 @@ var loggedInUser = function(event){
 
   google.maps.event.addListener(marker, 'click', function(){
     marker.draggable = false;
-
+    debugger
     // id for lat and long hidden fields, store marker position
     bikeInfoWindow.open(map, marker);
     $('#bike_event_latitude').val(marker.position.A);
     $('#bike_event_longitude').val(marker.position.F);
 
   });
-   
+  
+   // $(document).on('click', 'a.remove-marker', function(e){
+   //  $.ajax({type: "delete"}).on('ajax:success', )
+   //  debugger
+   // })
   //current user can remove their own markers
-  
-  var removeMarker = bikeEventDataForm.find('.remove-marker')[0];
-  debugger;
-  google.maps.event.addDomListener(removeMarker, 'click', function(event) {
-    marker.setMap(null);
-  });
-  
-};
-
-var loggedOutUserClick = function(event){
+  $(document).on("ajax:success", '.remove-marker', function(e){
+    marker.setMap(null)
+  })
+ 
+});
+} else {
+  google.maps.event.addListener(map, 'click', function loggedOutUserClick(event){
   if (confirm('Would you like to login?') ) {
     window.location = "/login";
   } else {
     alert("You must login to add a bike incident to the map.")
   }
-}
-
-if ( window.hasOwnProperty('current_user') ) {
-// click on map and add a pin
-  google.maps.event.addListener(map, 'click', loggedInUser);
-} else {
-  google.maps.event.addListener(map, 'click', loggedOutUserClick);
+});
 }
 
 });
