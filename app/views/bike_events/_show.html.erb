@@ -4,9 +4,8 @@
 <%= bike_event.time %></p>
 <p> Details: <%= bike_event.details %> </p>
 
-
-<div class="remove-marker">
-  <%=link_to "Remove marker", bike_event_path(bike_event.id), remote: true, method: :delete, class: "remove-marker"%>
+<div class="bye">
+  <%=link_to "Remove marker", bike_event_path(bike_event.id), remote: true, method: :delete, data: { confirm: "Are you sure?", id: "remove-marker-#{bike_event.id }" } %>
 </div>
 
 <!-- <div class="remove-marker">

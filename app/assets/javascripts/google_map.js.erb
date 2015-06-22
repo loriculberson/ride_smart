@@ -65,11 +65,13 @@ if ( window.hasOwnProperty('current_user') ) {
 
     //successful creation of a marker, hit create action, 
     //then get the show view content = responseData
+
+
     bikeEventForm.on('ajax:success', function(event, responseData){
+      removeLink = $.parseHTML(responseData)[0];
       bikeInfoWindow.close();
       bikeInfoWindow.setContent(responseData);
       bindEvents();
-      debugger
     })
   }
 
@@ -92,22 +94,27 @@ if ( window.hasOwnProperty('current_user') ) {
 
   google.maps.event.addListener(marker, 'click', function(){
     marker.draggable = false;
-    debugger
     // id for lat and long hidden fields, store marker position
     bikeInfoWindow.open(map, marker);
+    //console.log($('#bike_event_latitude').val(marker.position.A));
     $('#bike_event_latitude').val(marker.position.A);
     $('#bike_event_longitude').val(marker.position.F);
-
   });
-  
-   // $(document).on('click', 'a.remove-marker', function(e){
-   //  $.ajax({type: "delete"}).on('ajax:success', )
-   //  debugger
-   // })
-  //current user can remove their own markers
-  $(document).on("ajax:success", '.remove-marker', function(e){
-    marker.setMap(null)
-  })
+
+// $("removeLink").on("ajax:success", 'a.remove-marker', function(e){
+//   console.log(e);
+//   marker.setMap(null)
+//  })
+
+  //This removes all the markers off the page
+  $(document).on("ajax:success", '#remove-marker-data-id', function(e){
+      marker.setMap(null)
+    })
+//Attempt to remove only ONE marker at a time
+  // var removeLink = responseData.find('button.remove-marker')[0];
+  // google.maps.event.addDomListener(removeLink, 'click', function(event){
+  //   marker.setMap(null)
+  // })
  
 });
 } else {
@@ -123,7 +130,8 @@ if ( window.hasOwnProperty('current_user') ) {
 });
 // Make an ajax get request to '/bike_events'
 function fetchMarkers(map) {
-  $.get('/bike_events', function(data) {
+  $.get('/bike_events', function(data ) {
+    console.log("Hi AGAIN!");
     data.forEach(function(bikeEvent){
       var latLng = {lat: +bikeEvent.latitude, lng: +bikeEvent.longitude};
       new google.maps.Marker({
