@@ -1,9 +1,7 @@
   <%= form_for(@bike_event, url: bike_events_path, remote: true, method: :post, role:"form") do |f| %>
 
-  <div id="errors">
-    
+  <div class="errors">
   </div>
-    <%#= render "partials/bike_events_errors" %>
     <%= render partial: "bike_events/incident_types", locals: { f: f} %>
 
      <div>

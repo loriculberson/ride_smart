@@ -23,7 +23,7 @@ $(document).ready(function(){
 
       var youMarker = new google.maps.Marker({
       position: initialLocation, 
-      map: map, 
+      map: map
     });
 
     }, function() {
@@ -58,12 +58,11 @@ if ( window.hasOwnProperty('current_user') ) {
 
     //if there are errors in the new bike event form 
     bikeEventForm.on('ajax:error', function(event, xhr, status, error) {
-      var errorData = xhr.responseText;
+      var errorData = JSON.parse(xhr.responseText);
       bikeInfoWindow.setContent(errorData);
       // NOTE: This does not work;
       bindEvents();
     })
-
     //successful creation of a marker, hit create action, 
     //then get the show view content = responseData
 
@@ -71,8 +70,15 @@ if ( window.hasOwnProperty('current_user') ) {
       var eventDetails = $(responseData);
       bikeInfoWindow.close();
       bikeInfoWindow.setContent(eventDetails[0]);
-      eventDetails.find('.bye a').on('click', function(event){
+
+      var removeMarkerLink = eventDetails.find('.bye a')
+      removeMarkerLink.on('click', function(event){
         event.preventDefault();
+
+        $.ajax({
+          type: 'DELETE',
+          url: removeMarkerLink.attr('href')
+        })
          marker.setMap(null);
       })
 
@@ -141,7 +147,6 @@ if ( window.hasOwnProperty('current_user') ) {
 // Make an ajax get request to '/bike_events'
 function fetchMarkers(map) {
   $.get('/bike_events', function(data ) {
-    console.log("Hi AGAIN!");
     data.forEach(function(bikeEvent){
       var latLng = {lat: +bikeEvent.latitude, lng: +bikeEvent.longitude};
       new google.maps.Marker({
