@@ -112,28 +112,55 @@ if ( window.hasOwnProperty('current_user') ) {
 
 } else {
   google.maps.event.addListener(map, 'click', function loggedOutUserClick(event){
-  if (confirm('Would you like to login?') ) {
-    window.location = "/login";
-  } else {
-    alert("You must login to add a bike incident to the map.")
-  }
-});
-}
-
-});
-// Make an ajax get request to '/bike_events'
-function fetchMarkers(map) {
-  $.get('/bike_events', function(data ) {
-    data.forEach(function(bikeEvent){
-      var latLng = {lat: +bikeEvent.latitude, lng: +bikeEvent.longitude};
-      new google.maps.Marker({
-        position: latLng,
-        map: map,
-        draggable: false,
-        animation: google.maps.Animation.DROP,
-        icon: "<%= asset_path('bike_marker2.png') %>",
-        id: bikeEvent.id
-      });
-    })
+    if (confirm('Would you like to login?') ) {
+      window.location = "/login";
+    } else {
+      alert("You must login to add a bike incident to the map.")
+    }
   });
 }
+
+  function addClickListenerToRemoveMarker(contentsOfInfoWindow, marker) {
+    var removeMarkerLink = contentsOfInfoWindow.find('.bye a')
+    removeMarkerLink.on('click', function(event){
+      event.preventDefault();
+
+      $.ajax({
+        type: 'DELETE',
+        url: removeMarkerLink.attr('href')
+      })
+      marker.setMap(null);
+    })
+  }
+
+
+
+// Make an ajax get request to '/bike_events'
+  function fetchMarkers(map) {
+    $.getJSON('/bike_events', function(data ) {
+      data.forEach(function(bikeEvent){
+        var latLng = {lat: +bikeEvent.latitude, lng: +bikeEvent.longitude};
+        var marker = new google.maps.Marker({
+          position: latLng,
+          map: map,
+          draggable: false,
+          animation: google.maps.Animation.DROP,
+          icon: "<%= asset_path('bike_marker2.png') %>",
+          id: bikeEvent.id
+        });
+
+        //create infoWindow
+        var twoWheeledEvent = $(bikeEvent.details)
+        var markerInfoWindow = new google.maps.InfoWindow();
+        markerInfoWindow.setContent(twoWheeledEvent[0]);
+
+        addClickListenerToRemoveMarker(twoWheeledEvent, marker);      
+
+        google.maps.event.addListener(marker, 'click', function(){
+          markerInfoWindow.open(map, marker);
+        });
+      })
+    });
+  }
+});
+

@@ -4,7 +4,27 @@ class BikeEventsController < ApplicationController
 
   def index
     @bike_event ||= BikeEvent.new 
-    respond_with BikeEvent.all
+
+    respond_to do |format| 
+      format.html
+      format.json do 
+        all_bike_events = BikeEvent.all.map do |bike_event|
+          details = render_to_string(
+            partial: 'show.html', 
+            locals: { bike_event: bike_event }, 
+            layout: false
+          )
+
+          { 
+            latitude:   bike_event.latitude,
+            longitude:  bike_event.longitude,
+            id:         bike_event.id,
+            details:    details
+          }
+        end
+        render json: all_bike_events 
+      end 
+    end
   end
 
   def new
