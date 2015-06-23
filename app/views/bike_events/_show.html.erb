@@ -1,12 +1,13 @@
-<p> <%= bike_event.user.username %> reports: <br>
-<%= bike_event.event_kind %> on 
-<%= bike_event.date %> @
-<%= bike_event.time %></p>
-<p> Details: <%= bike_event.details %> </p>
+<div class="tool-tip">
+  <p> <%= bike_event.user.username %> reports: <br>
+  <%= bike_event.event_kind %> on 
+  <%= bike_event.date %> @
+  <%= bike_event.time %></p>
+  <p> Details: <%= bike_event.details %> </p>
 
-<div class="bye">
-  <%=link_to "Remove marker", bike_event_path(bike_event.id), remote: true, method: :delete, data: { confirm: "Are you sure?", id: "remove-marker" } %>
-</div>
+  <div class="bye">
+    <%=link_to "Remove marker", bike_event_path(bike_event.id) %>
+  </div>
 
 <!-- <div class="remove-marker">
   <%#link_to "Remove marker", bike_event_path(bike_event.id) , class: "remove-marker"%>
@@ -14,3 +15,4 @@
   Must set up a click listener on the document. Then must write an ajax request, that inclues the type: delete and the url
 </div> -->
 
+</div>

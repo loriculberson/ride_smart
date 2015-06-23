@@ -4,8 +4,8 @@
   <title>RideSmart</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => false %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => false %>
-  <%= javascript_include_tag 'https://maps.googleapis.com/maps/api/js?sensor=true' %>
-  
+  <%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?libraries=places" %>
+
   <%= javascript_include_tag 'google_map.js' %>
   <%= csrf_meta_tags %>
   <% if current_user %>

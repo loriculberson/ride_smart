@@ -68,8 +68,16 @@ if ( window.hasOwnProperty('current_user') ) {
     //then get the show view content = responseData
 
     bikeEventForm.on('ajax:success', function(event, responseData){
+      var eventDetails = $(responseData);
       bikeInfoWindow.close();
-      bikeInfoWindow.setContent(responseData);
+      bikeInfoWindow.setContent(eventDetails[0]);
+      eventDetails.find('.bye a').on('click', function(event){
+        event.preventDefault();
+         marker.setMap(null);
+      })
+
+// bind the click event to the "remove link"
+//when you click the remove link ....
       bindEvents();
     })
   }
@@ -104,16 +112,18 @@ if ( window.hasOwnProperty('current_user') ) {
 //   console.log(e);
 //   marker.setMap(null)
 //  })
-  function removeMarker(marker) {
-    marker.setMap(null); 
-  }
+  // function removeMarker(marker) {
+  //   marker.setMap(null); 
+  // }
 
   //This removes all the markers off the page
   // $(document).on("ajax:success", '.bye', function(){
-  $(document).on("ajax:success", '.bye', function(){
-
-      marker.setMap(null)
-    })
+  // $(document).on("ajax:success", '.bye', function(){
+    // debugger
+    // $(this).hide()
+      // $(this)[0].children[0].attributes[1].value
+    //   marker.setMap(null)
+    // })
  
 });
 
