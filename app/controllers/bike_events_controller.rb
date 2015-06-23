@@ -16,7 +16,7 @@ class BikeEventsController < ApplicationController
     if @bike_event.save
       render partial: 'show', locals: { bike_event: @bike_event }, layout: false
     else
-      render partial: 'form', status: 422, layout: false
+      render partial: 'partials/bike_events_errors', status: 422, layout: false
     end
   end
 
