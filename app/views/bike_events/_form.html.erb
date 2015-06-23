@@ -1,11 +1,12 @@
+<div class="form-smaller">
   <%= form_for(@bike_event, url: bike_events_path, remote: true, method: :post, role:"form") do |f| %>
 
-  <div class="errors">
-  
-  </div>
+    <div class="errors">
+    </div>
+
     <%= render partial: "bike_events/incident_types", locals: { f: f} %>
 
-     <div>
+    <div>
       <%= f.label :incident_date %>
       <%= f.datetime_select :occurred_at, start_year:Date.today.year - 7, end_year:Date.today.year, ampm: true %><br>
     </div>
@@ -16,8 +17,8 @@
     </div>
 
     <div>
-      <%= f.label :image, "Attach an Image" %><br />
-      <%= f.file_field :image_url %>
+      <%#= f.label :image, "Attach an Image" %><br />
+      <%#= f.file_field :image_url %>
     </div>
 
     <div>
@@ -30,5 +31,6 @@
     </div>
 
   <% end %>
+</div>
 
 
