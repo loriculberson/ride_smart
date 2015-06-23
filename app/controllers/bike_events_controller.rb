@@ -44,10 +44,10 @@ class BikeEventsController < ApplicationController
   end
 
   def destroy
-    bike_event = BikeEvent.find(params[:id])
-    bike_event.destroy
-    head :no_content  
-    # sends a 204
+      bike_event = BikeEvent.find(params[:id])
+      bike_event.destroy
+      head :no_content  
+      # sends a 204
   end
 
   private

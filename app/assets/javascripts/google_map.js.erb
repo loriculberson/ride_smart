@@ -46,79 +46,79 @@ $(document).ready(function(){
 //populating the map with markers FIRST
   fetchMarkers(map);
 
-if ( window.hasOwnProperty('current_user') ) {
-// click on map and add a pin
-  google.maps.event.addListener(map, 'click', function loggedInUser(event){
-  function bindEvents() {
-    var bikeEventForm = $(bikeInfoWindow.getContent());
+  if ( window.hasOwnProperty('current_user') ) {
+  // click on map and add a pin
+    google.maps.event.addListener(map, 'click', function loggedInUser(event){
+    function bindEvents() {
+      var bikeEventForm = $(bikeInfoWindow.getContent());
 
-    //if there are errors in the new bike event form 
-    bikeEventForm.on('ajax:error', function(event, xhr) {
-      var errorsDivContent = xhr.responseText;   //this is html
-      initialBikeEventForm.find('.errors').html(errorsDivContent);
-      bindEvents();
-    })
-    //successful creation of a marker, hit create action, 
-    //then get the show view content = responseData
-
-    bikeEventForm.on('ajax:success', function(event, responseData){
-      var eventDetails = $(responseData);
-      bikeInfoWindow.close();
-      bikeInfoWindow.setContent(eventDetails[0]);
-      //setContent doesn't know what to do with a jQuery object
-      //eventDetails[0] is the first and only element in the array 
-      //and since you need the entire element, use [0]
-
-      var removeMarkerLink = eventDetails.find('.bye a')
-      removeMarkerLink.on('click', function(event){
-        event.preventDefault();
-
-        $.ajax({
-          type: 'DELETE',
-          url: removeMarkerLink.attr('href')
-        })
-         marker.setMap(null);
+      //if there are errors in the new bike event form 
+      bikeEventForm.on('ajax:error', function(event, xhr) {
+        var errorsDivContent = xhr.responseText;   //this is html
+        initialBikeEventForm.find('.errors').html(errorsDivContent);
+        bindEvents();
       })
-      bindEvents();
-    })
-  }
+      //successful creation of a marker, hit create action, 
+      //then get the show view content = responseData
 
-  var marker = new google.maps.Marker({
-   position: event.latLng,
-   map: map,
-   draggable: true,
-   animation: google.maps.Animation.DROP,
-   icon: "<%= asset_path('bike_marker2.png') %>"
-  });
+      bikeEventForm.on('ajax:success', function(event, responseData){
+        var eventDetails = $(responseData);
+        bikeInfoWindow.close();
+        bikeInfoWindow.setContent(eventDetails[0]);
+        //setContent doesn't know what to do with a jQuery object
+        //eventDetails[0] is the first and only element in the array 
+        //and since you need the entire element, use [0]
 
-  var initialBikeEventForm = $($('#form-incident').html())
+        var removeMarkerLink = eventDetails.find('.bye a')
+        removeMarkerLink.on('click', function(event){
+          event.preventDefault();
 
-  var bikeInfoWindow = new google.maps.InfoWindow();
-
-  //set the content of the infoWindow
-  bikeInfoWindow.setContent(initialBikeEventForm[0]);
- 
-  bindEvents();
-
-  google.maps.event.addListener(marker, 'click', function(){
-    marker.draggable = false;
-    // id for lat and long hidden fields, store marker position
-    bikeInfoWindow.open(map, marker);
-    //console.log($('#bike_event_latitude').val(marker.position.A));
-    $('#bike_event_latitude').val(marker.position.A);
-    $('#bike_event_longitude').val(marker.position.F);
-  });
-});
-
-} else {
-  google.maps.event.addListener(map, 'click', function loggedOutUserClick(event){
-    if (confirm('Would you like to login?') ) {
-      window.location = "/login";
-    } else {
-      alert("You must login to add a bike incident to the map.")
+          $.ajax({
+            type: 'DELETE',
+            url: removeMarkerLink.attr('href')
+          })
+           marker.setMap(null);
+        })
+        bindEvents();
+      })
     }
+
+    var marker = new google.maps.Marker({
+     position: event.latLng,
+     map: map,
+     draggable: true,
+     animation: google.maps.Animation.DROP,
+     icon: "<%= asset_path('bike_marker2.png') %>"
+    });
+
+    var initialBikeEventForm = $($('#form-incident').html())
+
+    var bikeInfoWindow = new google.maps.InfoWindow();
+
+    //set the content of the infoWindow
+    bikeInfoWindow.setContent(initialBikeEventForm[0]);
+   
+    bindEvents();
+
+    google.maps.event.addListener(marker, 'click', function(){
+      marker.draggable = false;
+      // id for lat and long hidden fields, store marker position
+      bikeInfoWindow.open(map, marker);
+      //console.log($('#bike_event_latitude').val(marker.position.A));
+      $('#bike_event_latitude').val(marker.position.A);
+      $('#bike_event_longitude').val(marker.position.F);
+    });
   });
-}
+
+  } else {
+    google.maps.event.addListener(map, 'click', function loggedOutUserClick(event){
+      if (confirm('Would you like to login?') ) {
+        window.location = "/login";
+      } else {
+        alert("You must login to add a bike incident to the map.")
+      }
+    });
+  }
 
   function addClickListenerToRemoveMarker(contentsOfInfoWindow, marker) {
     var removeMarkerLink = contentsOfInfoWindow.find('.bye a')
@@ -132,8 +132,6 @@ if ( window.hasOwnProperty('current_user') ) {
       marker.setMap(null);
     })
   }
-
-
 
 // Make an ajax get request to '/bike_events'
   function fetchMarkers(map) {
