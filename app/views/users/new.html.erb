@@ -1,48 +1,56 @@
+<div class"container">
+  <div class="row">
+    <div class="form col-xs-6 table-margin">
+  
+    <h1>Join Our Riders!</h1>
 
-<div class="col-xs-6">
-    <div class="form">
-      <h1>Join Our Riders!</h1>
-
-        <%= form_for(@user, url: users_path, method: :post, role:"form") do |f| %>
-
+      <%= form_for(@user, url: users_path, method: :post, role:"form") do |f| %>
         <%= render "partials/user_errors" %>
 
-              <div>
-                <%= f.label :username %>
-                <%= f.text_field :username, autofocus: true ,class: "form-control"%><br>
-              </div>
+        <div class="col-md-12">
+          <%= f.label :username %>
+          <%= f.text_field :username, autofocus: true, class: "form-control"%>
+        </div>  
 
-              <div>
-                <%= f.label :password%>
-                <%= f.password_field  :password %>
-              </div>
+        <div class="col-md-6">
+          <%= f.label :password%>
+          <%= f.password_field  :password, class: "form-control" %>
+        </div>
 
-              <div>
-                <%= f.label :password_confirmation%>
-                <%= f.password_field  :password_confirmation %>
-              </div>
+        <div class="col-md-6">
+          <%= f.label :password_confirmation%>
+          <%= f.password_field  :password_confirmation, class: "form-control" %>
+        </div>
 
-              <div>
-                <%= f.label :email%>
-                <%= f.text_field :email %>
-              </div>
+        <div class="col-md-12">
+          <%= f.label :email%>
+          <%= f.text_field :email, class: "form-control" %>
+        </div>
 
-              <div>
-                <%= f.label :twitter_nickname%>
-                <%= f.text_field :nickname %>
-              </div>
+        <div class="col-md-12">
+          <%= f.label :twitter_nickname%>
+          <%= f.text_field :nickname, class: "form-control" %>
+        </div>
 
-              <div>
-                <%= f.label :image, "Attach an Image" %><br />
-                <%= f.file_field :image_url %>
-              </div>
-        
+        <div>
+          <%#= f.label :image, "Attach an Image" %>
+          <%#= f.file_field :image_url %>
+        </div>
 
-            <div>
-              <%= f.submit "Create Account", class: "btn btn-primary" %>
-            </div>
-    
-        <% end %>
-        <span class="black-text">Already have an account? <%= link_to "Click here to login", login_path %></span>
-    </div>  
+        <div class="col-md-12">
+          <br><%= f.submit "Create Account", class: "btn btn-primary" %>
+        </div>
+      <% end %>
+
+      <span class="black-text">Already have an account? <%= link_to "Click here to login", login_path %>
+      </span>
+
+    </div> 
+
+    <div class="col-md-6">
+      <span class="border-shadow">
+         <%= image_tag("bicycle-accident_sm.jpg")%>
+      </span> 
+    </div>
+  </div> 
 </div>`
