@@ -26,7 +26,7 @@ class BikeEventsController < ApplicationController
   def destroy
     bike_event = BikeEvent.find(params[:id])
     bike_event.delete 
-    respond_with bike_event
+    # respond_with bike_event
     # need to add a failure
     # ajax call to destroy means no need to redirect
   end
