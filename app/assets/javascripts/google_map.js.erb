@@ -1,7 +1,4 @@
-// var MyMap = {};
 $(document).ready(function(){
-// setting up the map, the map options and the starting position
-
   var mapCanvas = $('#map-canvas');
   
   var mapOptions = {
@@ -13,7 +10,7 @@ $(document).ready(function(){
   var initialLocation;
   var denver = new google.maps.LatLng(39.7392, -104.9903)
   var map = new google.maps.Map(mapCanvas[0], mapOptions);
-  // MyMap.map = map;
+
 //W3C Geolocation preferred
   if(navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
@@ -47,7 +44,6 @@ $(document).ready(function(){
   }
 
 //populating the map with markers FIRST
-
   fetchMarkers(map);
 
 if ( window.hasOwnProperty('current_user') ) {
@@ -57,10 +53,9 @@ if ( window.hasOwnProperty('current_user') ) {
     var bikeEventForm = $(bikeInfoWindow.getContent());
 
     //if there are errors in the new bike event form 
-    bikeEventForm.on('ajax:error', function(event, xhr, status, error) {
-      var errorData = JSON.parse(xhr.responseText);
-      bikeInfoWindow.setContent(errorData);
-      // NOTE: This does not work;
+    bikeEventForm.on('ajax:error', function(event, xhr) {
+      var errorsDivContent = xhr.responseText;   //this is html
+      initialBikeEventForm.find('.errors').html(errorsDivContent);
       bindEvents();
     })
     //successful creation of a marker, hit create action, 
@@ -70,6 +65,9 @@ if ( window.hasOwnProperty('current_user') ) {
       var eventDetails = $(responseData);
       bikeInfoWindow.close();
       bikeInfoWindow.setContent(eventDetails[0]);
+      //setContent doesn't know what to do with a jQuery object
+      //eventDetails[0] is the first and only element in the array 
+      //and since you need the entire element, use [0]
 
       var removeMarkerLink = eventDetails.find('.bye a')
       removeMarkerLink.on('click', function(event){
@@ -81,9 +79,6 @@ if ( window.hasOwnProperty('current_user') ) {
         })
          marker.setMap(null);
       })
-
-// bind the click event to the "remove link"
-//when you click the remove link ....
       bindEvents();
     })
   }
@@ -113,24 +108,6 @@ if ( window.hasOwnProperty('current_user') ) {
     $('#bike_event_latitude').val(marker.position.A);
     $('#bike_event_longitude').val(marker.position.F);
   });
-
-// $("removeLink").on("ajax:success", 'a.remove-marker', function(e){
-//   console.log(e);
-//   marker.setMap(null)
-//  })
-  // function removeMarker(marker) {
-  //   marker.setMap(null); 
-  // }
-
-  //This removes all the markers off the page
-  // $(document).on("ajax:success", '.bye', function(){
-  // $(document).on("ajax:success", '.bye', function(){
-    // debugger
-    // $(this).hide()
-      // $(this)[0].children[0].attributes[1].value
-    //   marker.setMap(null)
-    // })
- 
 });
 
 } else {
