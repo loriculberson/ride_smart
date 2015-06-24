@@ -8,22 +8,24 @@ class BikeEventsController < ApplicationController
     respond_to do |format| 
       format.html
       format.json do 
-        all_bike_events = BikeEvent.all.map do |bike_event|
+        bike_events = 
+        # bike_events = BikeEvent.all.map do |bike_event|
+        bike_events = BikeEvent.filter_by(params[:event_kind]).map do |bike_event|
           details = render_to_string(
             partial: 'show.html', 
             locals: { bike_event: bike_event }, 
             layout: false
           )
-
           { 
             latitude:   bike_event.latitude,
             longitude:  bike_event.longitude,
             id:         bike_event.id,
             event_kind: bike_event.event_kind,
+            icon:       bike_event.pin_color,
             details:    details
           }
         end
-        render json: all_bike_events 
+        render json: bike_events 
       end 
     end
   end
