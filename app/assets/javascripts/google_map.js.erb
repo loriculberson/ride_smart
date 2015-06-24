@@ -12,13 +12,13 @@ $(document).ready(function(){
   var map = new google.maps.Map(mapCanvas[0], mapOptions);
   var icons = {
     accident: {
-      icon: "<%= asset_path('bike_marker2.png') %>"
+      url: "<%= asset_path('pin_blue.png') %>"
     },
     hazard: {
-      icon: "<%= asset_path('bike_marker2.png') %>"
+      url: "<%= asset_path('pin_green.png') %>"
     },
     animal: {
-      icon: "<%= asset_path('bike_marker2.png') %>"
+      url: "<%= asset_path('bike_marker2.png') %>"
     }
   };
 
@@ -57,6 +57,7 @@ $(document).ready(function(){
 
 //populating the map with markers FIRST
   fetchAllMarkers(map);
+  // fetchAnimals(map);
 
   if ( window.hasOwnProperty('current_user') ) {
   // click on map and add a pin
@@ -95,14 +96,14 @@ $(document).ready(function(){
       })
     }
 
-    debugger;
     var marker = new google.maps.Marker({
-     position: event.latLng,
-     map: map,
-     draggable: true,
-     animation: google.maps.Animation.DROP,
-     // icon: "<%= asset_path('bike_marker2.png') %>"
-      icon: icons[event.icon].icon
+      position: event.latLng,
+      map: map,
+      draggable: true,
+      animation: google.maps.Animation.DROP,
+      // icon: "<%= asset_path('bike_marker2.png') %>"
+      icon: icons.accident.icon
+      // icon: icons[event.event_kind].icon
     });
 
     var initialBikeEventForm = $($('#form-incident').html())
@@ -119,7 +120,6 @@ $(document).ready(function(){
       // id for lat and long hidden fields, store marker position
       bikeInfoWindow.open(map, marker);
       //console.log($('#bike_event_latitude').val(marker.position.A));
-      debugger;
       $('#bike_event_latitude').val(marker.position.A);
       $('#bike_event_longitude').val(marker.position.F);
     });
@@ -148,32 +148,30 @@ $(document).ready(function(){
     })
   }
 
+//getting marker data from the database
   function drawPins(map, data) {
     data.forEach(function(bikeEvent){
-        var latLng = {lat: +bikeEvent.latitude, lng: +bikeEvent.longitude};
-        
-        var marker = new google.maps.Marker({
-        // debugger;
-          position: latLng,
-          map: map,
-          draggable: false,
-          animation: google.maps.Animation.DROP,
-          // icon: "<%= asset_path('bike_marker2.png') %>",
-          icon: "<%= asset_path('') %>",
-          id: bikeEvent.id
-        });
+      var latLng = {lat: +bikeEvent.latitude, lng: +bikeEvent.longitude};
+      var marker = new google.maps.Marker({
+        position: latLng,
+        map: map,
+        draggable: false,
+        animation: google.maps.Animation.DROP,
+        icon: icons[bikeEvent.icon],
+        id: bikeEvent.id
+      });
 
-        //create infoWindow
-        var twoWheeledEvent = $(bikeEvent.details)
-        var markerInfoWindow = new google.maps.InfoWindow();
-        markerInfoWindow.setContent(twoWheeledEvent[0]);
+      //create infoWindow
+      var twoWheeledEvent = $(bikeEvent.details)
+      var markerInfoWindow = new google.maps.InfoWindow();
+      markerInfoWindow.setContent(twoWheeledEvent[0]);
 
-        addClickListenerToRemoveMarker(twoWheeledEvent, marker);      
+      addClickListenerToRemoveMarker(twoWheeledEvent, marker);      
 
-        google.maps.event.addListener(marker, 'click', function(){
-          markerInfoWindow.open(map, marker);
-        });
-      })
+      google.maps.event.addListener(marker, 'click', function(){
+        markerInfoWindow.open(map, marker);
+      });
+    })
   }
 
   // Make an ajax call to get ACCIDENTS to '/bike_events'
@@ -198,6 +196,7 @@ $(document).ready(function(){
   // Make an ajax get all '/bike_events'
   function fetchAllMarkers(map) {
     $.getJSON('/bike_events', function(data) {
+      console.log(data);
       drawPins(map, data);
     });
   }

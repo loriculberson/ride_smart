@@ -8,7 +8,6 @@ class BikeEventsController < ApplicationController
     respond_to do |format| 
       format.html
       format.json do 
-        bike_events = 
         # bike_events = BikeEvent.all.map do |bike_event|
         bike_events = BikeEvent.filter_by(params[:event_kind]).map do |bike_event|
           details = render_to_string(
