@@ -105,6 +105,7 @@ $(document).ready(function(){
       // id for lat and long hidden fields, store marker position
       bikeInfoWindow.open(map, marker);
       //console.log($('#bike_event_latitude').val(marker.position.A));
+      debugger;
       $('#bike_event_latitude').val(marker.position.A);
       $('#bike_event_longitude').val(marker.position.F);
     });
@@ -149,6 +150,7 @@ $(document).ready(function(){
 
         //create infoWindow
         var twoWheeledEvent = $(bikeEvent.details)
+        console.log(bikeEvent.event_kind)
         var markerInfoWindow = new google.maps.InfoWindow();
         markerInfoWindow.setContent(twoWheeledEvent[0]);
 

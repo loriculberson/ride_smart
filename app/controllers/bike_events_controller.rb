@@ -19,6 +19,7 @@ class BikeEventsController < ApplicationController
             latitude:   bike_event.latitude,
             longitude:  bike_event.longitude,
             id:         bike_event.id,
+            event_kind: bike_event.event_kind,
             details:    details
           }
         end
@@ -45,8 +46,8 @@ class BikeEventsController < ApplicationController
 
   def destroy
       bike_event = BikeEvent.find(params[:id])
-      bike_event.destroy
-      head :no_content  
+        bike_event.destroy
+        head :no_content  
       # sends a 204
   end
 
