@@ -150,7 +150,6 @@ $(document).ready(function(){
 
 //getting marker data from the database
   function drawPins(map, data) {
-  debugger;
     data.forEach(function(bikeEvent){
       var latLng = {lat: +bikeEvent.latitude, lng: +bikeEvent.longitude};
       console.log(bikeEvent);
