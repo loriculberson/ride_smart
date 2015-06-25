@@ -5,9 +5,10 @@
   <%= bike_event.time %></p>
   <p> Details: <%= bike_event.details %> </p>
 
-  <% if current_user.id == bike_event.user_id %>
+  <% if current_user && current_user.id == bike_event.user_id %>
   <div class="bye">
     <%=link_to "Remove marker", bike_event_path(bike_event.id) %>
   </div>
+  <% end %>
 </div>
-<% end -%>
+
