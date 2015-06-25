@@ -4,7 +4,6 @@ RSpec.describe type: :feature do
 
   def sign_up
     visit '/'
-    save_and_open_page
     click_on 'Sign Up'
   end
 

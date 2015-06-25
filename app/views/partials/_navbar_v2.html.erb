@@ -27,8 +27,6 @@
           </ul>
         </li>
         <!--if current user go to bike events path, else to to login or create account-->
-        <li> <%= link_to "Report an Incident", bike_events_path %> </li>
-
           <% if current_user %>
             <%= render 'partials/navbar_logged_in_user' %>
           <% else %>
