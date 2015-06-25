@@ -8,7 +8,7 @@ $(document).ready(function(){
   };
 
   var initialLocation;
-  var denver = new google.maps.LatLng(39.7392, -104.9903)
+  var denver = new google.maps.LatLng(39.7392, -104.9903);
   var map = new google.maps.Map(mapCanvas[0], mapOptions);
   var icons = {
     accident: {
@@ -25,25 +25,26 @@ $(document).ready(function(){
     }
   };
 
+    fetchAllMarkers(map); 
 
-//W3C Geolocation preferred
+  //W3C Geolocation preferred
   if(navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
       var initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-      
+
       map.setCenter(initialLocation);
 
       var youMarker = new google.maps.Marker({
-      position: initialLocation, 
-      map: map
-    });
+        position: initialLocation, 
+        map: map
+      });
 
     }, function() {
       handleNoGeolocation(true);
     });
   } else {
 
-  //if browser doesn't support Geolocation
+    //if browser doesn't support Geolocation
     handleNoGeolocation(false);
   }
 
@@ -58,75 +59,74 @@ $(document).ready(function(){
     map.setCenter(initialLocation);
   }
 
-//populating the map with markers FIRST
-  fetchAllMarkers(map);
-
   if ( window.hasOwnProperty('current_user') ) {
-  // click on map and add a pin
+    // click on map and add a pin
     google.maps.event.addListener(map, 'click', function loggedInUser(event){
-    function bindEvents() {
-      var bikeEventForm = $(bikeInfoWindow.getContent());
+      function bindEvents() {
+        var bikeEventForm = $(bikeInfoWindow.getContent());
 
-      //if there are errors in the new bike event form 
-      bikeEventForm.on('ajax:error', function(event, xhr) {
-        var errorsDivContent = xhr.responseText;   //this is html
-        initialBikeEventForm.find('.errors').html(errorsDivContent);
-        bindEvents();
-      })
-      //successful creation of a marker, hit create action, 
-      //then get the show view content = responseData
-
-      bikeEventForm.on('ajax:success', function(event, responseData){
-        var eventDetails = $(responseData);
-        bikeInfoWindow.close();
-        bikeInfoWindow.setContent(eventDetails[0]);
-        //setContent doesn't know what to do with a jQuery object
-        //eventDetails[0] is the first and only element in the array 
-        //and since you need the entire element, use [0]
-
-        var removeMarkerLink = eventDetails.find('.bye a')
-        removeMarkerLink.on('click', function(event){
-          event.preventDefault();
-
-          $.ajax({
-            type: 'DELETE',
-            url: removeMarkerLink.attr('href')
-          })
-           marker.setMap(null);
+        //if there are errors in the new bike event form 
+        bikeEventForm.on('ajax:error', function(event, xhr) {
+          var errorsDivContent = xhr.responseText;   //this is html
+          initialBikeEventForm.find('.errors').html(errorsDivContent);
+          bindEvents();
         })
-        bindEvents();
-      })
-    }
+        //successful creation of a marker, hit create action, 
+        //then get the show view content = responseData
 
-    var marker = new google.maps.Marker({
-      position: event.latLng,
-      map: map,
-      draggable: true,
-      animation: google.maps.Animation.DROP,
-      // icon: icons[bikeEvent.icon],
-      // icon: "<%= asset_path('bike_marker2.png') %>"
-      icon: icons.accident.icon
-      // icon: icons[event.event_kind].icon
+        bikeEventForm.on('ajax:success', function(event, responseData){
+          var eventDetails = $(responseData);
+          bikeInfoWindow.close();
+          bikeInfoWindow.setContent(eventDetails[0]);
+          //setContent doesn't know what to do with a jQuery object
+          //eventDetails[0] is the first and only element in the array 
+          //and since you need the entire element, use [0]
+
+          var removeMarkerLink = eventDetails.find('.bye a')
+          removeMarkerLink.on('click', function(event){
+            event.preventDefault();
+
+            $.ajax({
+              type: 'DELETE',
+              url: removeMarkerLink.attr('href')
+            })
+            marker.setMap(null);
+          })
+          bindEvents();
+        })
+      }
+
+      var marker = new google.maps.Marker({
+        position: event.latLng,
+        map: map,
+        draggable: true,
+        animation: google.maps.Animation.DROP,
+        // icon: icons[bikeEvent.icon]
+        icon: "<%= asset_path('bike_marker2.png') %>"
+
+
+        // icon: icons.accident.icon
+        // icon: icons[event.event_kind].icon
+      });
+
+  var initialBikeEventForm = $($('#form-incident').html());
+
+  var bikeInfoWindow = new google.maps.InfoWindow();
+
+      //set the content of the infoWindow
+      bikeInfoWindow.setContent(initialBikeEventForm[0]);
+
+      bindEvents();
+
+      google.maps.event.addListener(marker, 'click', function(){
+        marker.draggable = false;
+        // id for lat and long hidden fields, store marker position
+        bikeInfoWindow.open(map, marker);
+        //console.log($('#bike_event_latitude').val(marker.position.A));
+        $('#bike_event_latitude').val(marker.position.A);
+        $('#bike_event_longitude').val(marker.position.F);
+      });
     });
-
-    var initialBikeEventForm = $($('#form-incident').html())
-
-    var bikeInfoWindow = new google.maps.InfoWindow();
-
-    //set the content of the infoWindow
-    bikeInfoWindow.setContent(initialBikeEventForm[0]);
-   
-    bindEvents();
-
-    google.maps.event.addListener(marker, 'click', function(){
-      marker.draggable = false;
-      // id for lat and long hidden fields, store marker position
-      bikeInfoWindow.open(map, marker);
-      //console.log($('#bike_event_latitude').val(marker.position.A));
-      $('#bike_event_latitude').val(marker.position.A);
-      $('#bike_event_longitude').val(marker.position.F);
-    });
-  });
 
   } else {
     google.maps.event.addListener(map, 'click', function loggedOutUserClick(event){
@@ -149,12 +149,13 @@ $(document).ready(function(){
       })
       marker.setMap(null);
     })
-  }
+  };
 
-//getting marker data from the database
+  //getting marker data from the database
   function drawPins(map, data) {
     data.forEach(function(bikeEvent){
       var latLng = {lat: +bikeEvent.latitude, lng: +bikeEvent.longitude};
+      
       var marker = new google.maps.Marker({
         position: latLng,
         map: map,
@@ -165,42 +166,46 @@ $(document).ready(function(){
       });
 
       //create infoWindow
-      var twoWheeledEvent = $(bikeEvent.details)
+      var twoWheeledEvent = $(bikeEvent.details);
       var markerInfoWindow = new google.maps.InfoWindow();
       markerInfoWindow.setContent(twoWheeledEvent[0]);
 
-      addClickListenerToRemoveMarker(twoWheeledEvent, marker);      
+      addClickListenerToRemoveMarker(twoWheeledEvent, marker); 
 
       google.maps.event.addListener(marker, 'click', function(){
         markerInfoWindow.open(map, marker);
       });
-    })
-  }
+    });
+  };
 
-  // Make an ajax call to get ACCIDENTS to '/bike_events'
-  function fetchAccidents(map) {
-    $.getJSON('/bike_events?event_kind=Accident', function(data) {
-      drawPins(map, data);
-    });
-  }
 
-  // Make an ajax call to get ACCIDENTS to '/bike_events'
-  function fetchRoadHazards(map) {
-    $.getJSON('/bike_events?event_kind=Road%20Hazard', function(data) {
-      drawPins(map, data);
-    });
-  }
+// Make an ajax call to get ACCIDENTS to '/bike_events'
+function fetchAccidents(map) {
+  $.getJSON('/bike_events?event_kind=Accident', function(data) {
+    drawPins(map, data);
+  });
+}
 
-  function fetchAnimals(map) {
-    $.getJSON('/bike_events?event_kind=Freak%2C%20wildlife%20incident', function(data) {
-      drawPins(map, data);
-    });
-  }
-  // Make an ajax get all '/bike_events'
-  function fetchAllMarkers(map) {
-    $.getJSON('/bike_events', function(data) {
-      drawPins(map, data);
-    });
-  }
+// Make an ajax call to get ACCIDENTS to '/bike_events'
+function fetchRoadHazards(map) {
+  $.getJSON('/bike_events?event_kind=Road%20Hazard', function(data) {
+    drawPins(map, data);
+  });
+}
+
+function fetchAnimals(map) {
+  $.getJSON('/bike_events?event_kind=Freak%2C%20wildlife%20incident', function(data) {
+    drawPins(map, data);
+  });
+}
+
+// Make an ajax get all '/bike_events'
+function fetchAllMarkers(map) {
+  $.getJSON('/bike_events', function(data) {
+    drawPins(map, data);
+  });
+}
+
 });
+
 
