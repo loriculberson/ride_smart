@@ -25,7 +25,8 @@ $(document).ready(function(){
     }
   };
 
-    fetchAllMarkers(map); 
+  
+  fetchAllMarkers(map);
 
   //W3C Geolocation preferred
   if(navigator.geolocation) {
@@ -58,6 +59,7 @@ $(document).ready(function(){
     }
     map.setCenter(initialLocation);
   }
+
 
   if ( window.hasOwnProperty('current_user') ) {
     // click on map and add a pin
@@ -108,6 +110,8 @@ $(document).ready(function(){
         // icon: icons.accident.icon
         // icon: icons[event.event_kind].icon
       });
+
+
 
   var initialBikeEventForm = $($('#form-incident').html());
 
@@ -177,7 +181,6 @@ $(document).ready(function(){
       });
     });
   };
-
 
 // Make an ajax call to get ACCIDENTS to '/bike_events'
 function fetchAccidents(map) {
