@@ -1,17 +1,15 @@
 <div class="container center">
 <div class="col-xs-6">
   <div class="form-area">  
-      <form role="form">
 
         <h1 class="extra-cushion">Login</h1>
 
-        <%= form_for(:session, url: login_path) do |f| %>
+        <%= form_for(:session, url: login_path, method: :post) do |f| %>
         <%= f.text_field :email,  placeholder: 'email', class: "form-control" %><br>
         <%= f.password_field :password,  placeholder: 'password', class: "form-control" %><br>
         <%= f.submit "Login", class: 'btn btn-primary'%>
         <% end %>
       <span class="black-text">Not yet a member? <%= link_to "Click here to create an account", new_user_path %></span>
-      </form>
     </div>
   </div>
 

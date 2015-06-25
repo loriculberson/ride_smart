@@ -79,7 +79,7 @@ $(document).ready(function(){
 
         bikeEventForm.on('ajax:success', function(event, responseData){
           var eventDetails = $(responseData);
-          bikeInfoWindow.close();
+          // bikeInfoWindow.close();
           bikeInfoWindow.setContent(eventDetails[0]);
           //setContent doesn't know what to do with a jQuery object
           //eventDetails[0] is the first and only element in the array 
