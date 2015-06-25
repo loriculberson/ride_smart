@@ -1,6 +1,6 @@
 class BikeEventsController < ApplicationController
   respond_to :json, :html
-  before_action :authorize_user, only: [:new, :create, :edit, :update, :delete]
+  before_action :authorize_user, only: [:new, :create, :edit, :update, :destroy]
 
   def index
     @bike_event ||= BikeEvent.new 
@@ -46,10 +46,10 @@ class BikeEventsController < ApplicationController
   end
 
   def destroy
-      bike_event = BikeEvent.find(params[:id])
-        bike_event.destroy
-        head :no_content  
-      # sends a 204
+    bike_event = BikeEvent.find(params[:id])
+    bike_event.destroy
+    head :no_content  
+    # sends a 204
   end
 
   private
