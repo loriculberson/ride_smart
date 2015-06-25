@@ -25,7 +25,7 @@ footer {
   color: rgba(255, 255, 255, 0.45);
   text-align: center;
   background: #000;
-  height: 85px;
+  height: 110px;
   position: fixed;
   bottom: 0;
   width: 100%;
@@ -35,9 +35,10 @@ footer {
 .intro-header {
   text-align: center;
   color: #f8f8f8;
-  background:image-url('cyclist_pack.jpg');
-  background-size: cover;
+  background:image-url('cyclist_pack.jpg') no-repeat;
+  background-size: cover; 
   background-position: 0 -100px;
+  min-height: 100vh;
 
   img {
     opacity: 0.6;

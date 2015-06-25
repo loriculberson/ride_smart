@@ -1,13 +1,14 @@
 <div class="tool-tip">
   <p> <%= bike_event.user.username %> reports: <br>
-  <%= bike_event.event_kind %> on 
+  <div class="event-kind"><%= bike_event.event_kind %></div>  on 
   <%= bike_event.date %> @
   <%= bike_event.time %></p>
   <p> Details: <%= bike_event.details %> </p>
 
-  <% if current_user.id == bike_event.user_id %>
+  <% if current_user && current_user.id == bike_event.user_id %>
   <div class="bye">
     <%=link_to "Remove marker", bike_event_path(bike_event.id) %>
   </div>
+  <% end %>
 </div>
-<% end -%>
+

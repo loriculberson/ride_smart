@@ -17,5 +17,26 @@ class BikeEvent < ActiveRecord::Base
     occurred_at.strftime('%I:%M %P')
   end
 
+  def self.filter_by(type)
+    if type.nil?
+      all
+    else
+      where(event_kind: type)
+    end
+  end
+
+  def pin_color
+    case event_kind
+      when 'Accident'
+      "accident"  #key for icon in js land
+      when 'Road Hazard'
+      "hazard"  
+      when 'Freak, animal incident'
+      "animal" 
+    else
+      "other"
+    end
+  end
+
 end
 
