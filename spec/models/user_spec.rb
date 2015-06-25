@@ -27,7 +27,7 @@ RSpec.describe User, type: :model do
   end
 
 
-  it "is not valid when duplicate name is trying to be created" do
+  it "is not valid when duplicate username is trying to be created" do
     user = create(:user)
     user2 = User.create(username: 'bubba', password: "password", email: "big_bubba@example.com")
 
