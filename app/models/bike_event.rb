@@ -4,7 +4,7 @@ class BikeEvent < ActiveRecord::Base
   belongs_to :user
 
   def valid_date
-    if occurred_at.future?
+    if occurred_at && occurred_at.future?
       errors.add(:occurred_at, "Event can not be in the future")
     end
   end

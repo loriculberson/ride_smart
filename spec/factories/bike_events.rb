@@ -5,7 +5,7 @@ FactoryGirl.define do
     :user2
   end
 
-  factory :bike_event1 do
+  factory :bike_event do
     user
     event_kind "Accident"
     occurred_at "Mon, 22 Jun 2015 02:59:00 UTC +00:00"
