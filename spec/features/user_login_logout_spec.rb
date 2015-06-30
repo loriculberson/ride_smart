@@ -44,7 +44,6 @@ RSpec.describe "authorized user can login", type: :feature do
   end
 
   it "can log in with Google" do 
-
     visit '/'
     expect(page).not_to have_content("Hello google_mock_user!")
     
@@ -53,8 +52,5 @@ RSpec.describe "authorized user can login", type: :feature do
     click_on 'with Google'
 
     expect(page).to have_content("Hello google_mock_user!")
-
   end
-
-
 end

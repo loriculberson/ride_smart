@@ -25,6 +25,36 @@ $(document).ready(function(){
       url: "<%= asset_path('bike_marker2.png') %>"
     }
   };
+debugger;
+  Object.keys(icons).forEach(function(key){
+    console.log(key,icons[key]);
+  })
+
+var legend = document.getElementById('legend');
+
+map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(
+  document.getElementById('legend'));
+
+// var div = document.createElement('div');
+// console.log(icons);
+// icons.forEach
+  // div.innerHTML = '<img src="' + icons[:accident][:url]+ '"> ' + name;
+  // console.log(icon)
+  // legend.appendChild(div);
+  
+// })
+// };
+
+
+// var superhero  = {  name: "Wonder Woman", 
+//                     vehicle: "Invisible Jet",
+//                     mate: "Superman",
+//                     tools: ["magic lasso", "bracelets"]
+//                 };
+
+// Object.keys(superhero).forEach(function(key){
+//   console.log(key, superhero[key]);
+// })
 
   
   fetchAllMarkers(map);
