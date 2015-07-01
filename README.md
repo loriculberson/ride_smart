@@ -4,4 +4,6 @@
 
 <p><strong> Tech Stack:</strong> Rails 4.2, JavaScript, , jQuery, Bootstrap, RSpec.</p>
 
-<p><strong>Visit:  </strong><a href="http://ride-smart.herokuapp.com"></a></p>
+<p><strong>Visit:  </strong><a href="http://ride-smart.herokuapp.com"> ride-smart.herokuapp.com</a></p>
+<p><a href="http://example.net/">This link</a> has no
+title attribute.</p>
