@@ -65,6 +65,65 @@ RSpec.describe BikeEvent, type: :model do
                                   longitude: nil )
     expect(bike_event).not_to be_valid
   end 
+
+  it "shows a date" do 
+    user = create(:user)
+
+    bike_event = BikeEvent.create(event_kind: "Accident", occurred_at: "Mon, 22 Jun 2015 02:59:00 UTC +00:00",
+                                  details: "Some details", user_id: user.id, latitude: '39.792050535946956', 
+                                  longitude: '-104.92372512817383' )
+    expect(bike_event.date).to eq("06-22-15")
+  end
+
+  it "shows a time" do 
+    user = create(:user)
+    bike_event = BikeEvent.create(event_kind: "Accident", occurred_at: "Mon, 22 Jun 2015 02:59:00 UTC +00:00",
+                                  details: "Some details", user_id: user.id, latitude: '39.792050535946956', 
+                                  longitude: '-104.92372512817383' )
+    expect(bike_event.time).to eq("02:59 am")
+
+  end
+
+  it "can filter by event kind" do 
+    user = create(:user)
+    bike_event = BikeEvent.create(event_kind: "Accident", occurred_at: "Mon, 22 Jun 2015 02:59:00 UTC +00:00",
+                                  details: "Some details", user_id: user.id, latitude: '39', 
+                                  longitude: '-104' )
+    
+
+    expect(BikeEvent.filter_by("Accident").first.event_kind).to eq(bike_event.event_kind)
+  end
+
+  it "knows its pin color" do 
+    user = create(:user)
+    bike_event = BikeEvent.create(event_kind: "Accident", occurred_at: "Mon, 22 Jun 2015 02:59:00 UTC +00:00",
+                                  details: "Some details", user_id: user.id, latitude: '39', 
+                                  longitude: '-104' )
+
+    expect(bike_event.pin_color).to eq("accident")
+
+  end
+
+  it "knows its pin color" do 
+    user = create(:user)
+    bike_event = BikeEvent.create(event_kind: "Road Hazard", occurred_at: "Mon, 22 Jun 2015 02:59:00 UTC +00:00",
+                                  details: "Some details", user_id: user.id, latitude: '39', 
+                                  longitude: '-104' )
+
+    expect(bike_event.pin_color).to eq("hazard")
+
+  end
+
+  it "knows its pin color" do 
+    user = create(:user)
+    bike_event = BikeEvent.create(event_kind: "Freak, animal incident", occurred_at: "Mon, 22 Jun 2015 02:59:00 UTC +00:00",
+                                  details: "Some details", user_id: user.id, latitude: '39', 
+                                  longitude: '-104' )
+
+    expect(bike_event.pin_color).to eq("animal")
+
+  end
+
  
 end
 

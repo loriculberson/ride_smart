@@ -40,5 +40,6 @@ RSpec.describe User, type: :model do
 
     expect(user2).not_to be_valid
   end
+
   
 end
