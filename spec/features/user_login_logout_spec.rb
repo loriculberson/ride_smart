@@ -43,4 +43,14 @@ RSpec.describe "authorized user can login", type: :feature do
     expect(page).to have_content("Successfully logged out!")
   end
 
+  it "can log in with Google" do 
+    visit '/'
+    expect(page).not_to have_content("Hello google_mock_user!")
+    
+    click_on 'Login'
+    mock_omniauth_user
+    click_on 'with Google'
+
+    expect(page).to have_content("Hello google_mock_user!")
+  end
 end
