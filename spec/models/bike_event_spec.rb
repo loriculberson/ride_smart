@@ -116,7 +116,7 @@ RSpec.describe BikeEvent, type: :model do
 
   it "knows its pin color" do 
     user = create(:user)
-    bike_event = BikeEvent.create(event_kind: "Freak, animal incident", occurred_at: "Mon, 22 Jun 2015 02:59:00 UTC +00:00",
+    bike_event = BikeEvent.create(event_kind: "Freak, wildlife incident", occurred_at: "Mon, 22 Jun 2015 02:59:00 UTC +00:00",
                                   details: "Some details", user_id: user.id, latitude: '39', 
                                   longitude: '-104' )
 
