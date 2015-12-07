@@ -31,7 +31,7 @@ class BikeEvent < ActiveRecord::Base
       "accident"  #key for icon in js land
       when 'Road Hazard'
       "hazard"  
-      when 'Freak, animal incident'
+      when 'Freak, wildlife incident'
       "animal" 
     else
       "other"
