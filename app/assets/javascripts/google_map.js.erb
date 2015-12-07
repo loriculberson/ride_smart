@@ -148,8 +148,8 @@ map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(
         // id for lat and long hidden fields, store marker position
         bikeInfoWindow.open(map, marker);
         //console.log($('#bike_event_latitude').val(marker.position.A));
-        $('#bike_event_latitude').val(marker.position.A);
-        $('#bike_event_longitude').val(marker.position.F);
+        $('#bike_event_latitude').val(marker.getPosition().lat());
+        $('#bike_event_longitude').val(marker.getPosition().lng());
       });
     });
 
