@@ -26,10 +26,12 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'bcrypt', '~> 3.1.7'
 gem 'google-api-client'
 gem 'omniauth-google-oauth2'
-gem 'rails_12factor', '~> 0.0.3'
 gem 'responders'
 gem "skylight"
 
+group :production do
+  gem 'rails_12factor', '~> 0.0.3'
+end
 # Use Unicorn as the app server
 # gem 'unicorn'
 
