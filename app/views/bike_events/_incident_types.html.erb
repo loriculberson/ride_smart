@@ -1,27 +1,16 @@
-  <h4>Type of Bike Incident</h4>
+<h6>Type of Bike Incident (select one:)</h6>
 
-  <div>
-    <%= f.label(:accident) do %>
-      <%= f.radio_button(:event_kind, "Accident", checked: true) %> Accident
-    <% end %> 
-  </div>
-
-  <div>
-    <%= f.label :road_hazard do %>
-      <%= f.radio_button(:event_kind, "Road Hazard") %> Road Hazard
+<div class="event-kind">
+  <%= f.select(:event_kind) do %>
+    <% [['Accident'],
+        ['Road Hazard'],
+        ['Freak, wildlife incident'],
+        ['Other']]
+    .each do |c| -%>
+      <%= content_tag(:option, c.first, value: c.first) %>
     <% end %>
-  </div>
+  <% end %>
+</div>
 
-  <div>
-    <%= f.label :animals do %>
-    <%= f.radio_button(:event_kind, "Freak, wildlife incident") %> Freak, wildlife incident
-    <% end %>
-  </div>
-
-  <div>
-    <%= f.label :other do %>
-    <%= f.radio_button(:event_kind, "Other") %> Other 
-    <% end %>
-  </div>
 
 

@@ -31,12 +31,25 @@
 
 .form-smaller {
   font-size: .8em;
-  padding: 7px;
   border-radius: 10px;
+
+  label {
+    font-weight: normal;
+  }
 }
 
-  #legend {
-    background: white;
-    padding: 10px;
-    z-index: 110;
+#legend {
+  background: white;
+  padding: 10px;
+  z-index: 110;
+}
+
+.event-kind {
+  margin-bottom: 15px;
+}
+
+.form-align {
+  label {
+    font-weight: normal;
   }
+}

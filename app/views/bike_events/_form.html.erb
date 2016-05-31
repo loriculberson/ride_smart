@@ -1,4 +1,4 @@
-  <div class="form-smaller">
+  <div>
     <%= form_for(@bike_event, url: bike_events_path, remote: true, method: :post, role:"form") do |f| %>
 
       <div class="errors">
@@ -6,24 +6,26 @@
 
       <%= render partial: "bike_events/incident_types", locals: { f: f} %>
 
-      <div>
-        <%= f.label :incident_date %>
-        <%= f.datetime_select :occurred_at, start_year:Date.today.year - 7, end_year:Date.today.year, ampm: true %><br>
+      <div class="form-align">
+        <div>
+          <%= f.label :date %>
+          <%= f.datetime_select :occurred_at, start_year:Date.today.year - 7, end_year:Date.today.year, ampm: true%><br>
+        </div>
+
+        <div>
+          <%= f.label :details%>
+          <%= f.text_area :details, cols: 40, rows: 2  %>
+        </div>
+
+        <div>
+          <%#= f.label :image, "Attach an Image" %><br />
+          <%#= f.file_field :image_url %>
+        </div>
       </div>
 
       <div>
-        <%= f.label :details%>
-        <%= f.text_area :details, cols: 58, rows: 4  %>
-      </div>
-
-      <div>
-        <%#= f.label :image, "Attach an Image" %><br />
-        <%#= f.file_field :image_url %>
-      </div>
-
-      <div>
-        <span id="latitude"> <%= f.hidden_field :latitude  %></span> 
-        <span id="longitude"> <%= f.hidden_field :longitude  %></span> 
+        <span id="latitude"> <%= f.hidden_field :latitude  %></span>
+        <span id="longitude"> <%= f.hidden_field :longitude  %></span>
       </div>
 
       <div>

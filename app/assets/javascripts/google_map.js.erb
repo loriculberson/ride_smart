@@ -1,8 +1,8 @@
 $(document).ready(function(){
   var mapCanvas = $('#map-canvas');
-  
+
   var mapOptions = {
-    zoom: 13,
+    zoom: 18,
     scrollwheel: false,
     mapTypeId: google.maps.MapTypeId.ROADMAP
   };
@@ -41,7 +41,7 @@ map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(
       map.setCenter(initialLocation);
 
       var youMarker = new google.maps.Marker({
-        position: initialLocation, 
+        position: initialLocation,
         map: map
       });
 
@@ -72,13 +72,13 @@ map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(
       function bindEvents() {
         var bikeEventForm = $(bikeInfoWindow.getContent());
 
-        //if there are errors in the new bike event form 
+        //if there are errors in the new bike event form
         bikeEventForm.on('ajax:error', function(event, xhr) {
           var errorsDivContent = xhr.responseText;   //this is html
           initialBikeEventForm.find('.errors').html(errorsDivContent);
           bindEvents();
         })
-        //successful creation of a marker, hit create action, 
+        //successful creation of a marker, hit create action,
         //then get the show view content = responseData
 
         bikeEventForm.on('ajax:success', function(event, responseData){
@@ -86,7 +86,7 @@ map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(
           // bikeInfoWindow.close();
           bikeInfoWindow.setContent(eventDetails[0]);
           //setContent doesn't know what to do with a jQuery object
-          //eventDetails[0] is the first and only element in the array 
+          //eventDetails[0] is the first and only element in the array
           //and since you need the entire element, use [0]
 
           var removeMarkerLink = eventDetails.find('.bye a')
@@ -191,7 +191,7 @@ map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(
   function drawPins(map, data) {
     data.forEach(function(bikeEvent){
       var latLng = {lat: +bikeEvent.latitude, lng: +bikeEvent.longitude};
-      
+
       var marker = new google.maps.Marker({
         position: latLng,
         map: map,
@@ -206,7 +206,7 @@ map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(
       var markerInfoWindow = new google.maps.InfoWindow();
       markerInfoWindow.setContent(twoWheeledEvent[0]);
 
-      addClickListenerToRemoveMarker(twoWheeledEvent, marker); 
+      addClickListenerToRemoveMarker(twoWheeledEvent, marker);
 
       google.maps.event.addListener(marker, 'click', function(){
         markerInfoWindow.open(map, marker);
