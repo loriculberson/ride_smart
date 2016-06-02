@@ -1,7 +1,4 @@
-$(document).ready(
-
-  function (){
-
+$(document).ready(function (){
   var mapCanvas = $('#map-canvas');
 
   var mapOptions = {
@@ -29,50 +26,48 @@ $(document).ready(
     }
   };
 
-var legend = document.getElementById('legend');
+  var legend = document.getElementById('legend');
 
-map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(
-  document.getElementById('legend'));
+  map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(
+    document.getElementById('legend'));
 
-var icon_types = new Array();
-var icon_urls = new Array();
-var legend_text = 'LEGEND' + '<br>';
+  var icon_types = new Array();
+  var icon_urls = new Array();
+  var legend_text = 'LEGEND' + '<br>';
 
-for (var icon in icons) {
-  icon_types.push(icon);
-  icon_urls.push(icons[icon].url);
-}
+  for (var icon in icons) {
+    icon_types.push(icon);
+    icon_urls.push(icons[icon].url);
+  }
 
-for (var i = 0, j = icon_types.length; i<j; i++) {
-  var div = document.createElement('div');
-  legend_text += '<img src="' + icon_urls[i] + '"> ' + icon_types[i] + "<br>";
-  div.innerHTML = legend_text;
-}
+  for (var i = 0, j = icon_types.length; i<j; i++) {
+    var div = document.createElement('div');
+    legend_text += '<img src="' + icon_urls[i] + '"> ' + icon_types[i] + "<br>";
+    div.innerHTML = legend_text;
+  }
 
-document.getElementById("legend").innerHTML = legend_text;  
-// legend.appendChild(div);
+  document.getElementById("legend").innerHTML = legend_text;
+
   fetchAllMarkers(map);
-
   //W3C Geolocation preferred
   if(navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
       var initialLocation = new google.maps.LatLng(
-                            position.coords.latitude, 
-                            position.coords.longitude
+                          position.coords.latitude,
+                          position.coords.longitude
       );
 
       map.setCenter(initialLocation);
 
       var youMarker = new google.maps.Marker({
-        position: initialLocation,
-        map: map
+                    position: initialLocation,
+                    map: map
       });
 
     }, function() {
       handleNoGeolocation(true);
     });
   } else {
-
     //if browser doesn't support Geolocation
     handleNoGeolocation(false);
   }
@@ -134,9 +129,9 @@ document.getElementById("legend").innerHTML = legend_text;
         icon: "<%= asset_path('bike_marker2.png') %>"
       });
 
-  var initialBikeEventForm = $($('#form-incident').html());
+      var initialBikeEventForm = $($('#form-incident').html());
 
-  var bikeInfoWindow = new google.maps.InfoWindow();
+      var bikeInfoWindow = new google.maps.InfoWindow();
 
       //set the content of the infoWindow
       bikeInfoWindow.setContent(initialBikeEventForm[0]);
@@ -235,7 +230,7 @@ document.getElementById("legend").innerHTML = legend_text;
       markers.push(marker);
     });
   }
- 
+
   // Make an ajax call to get ACCIDENTS to '/bike_events'
   function fetchAccidents(map) {
     $.getJSON('/bike_events?event_kind=Accident', function(data) {
@@ -269,5 +264,3 @@ document.getElementById("legend").innerHTML = legend_text;
     });
   }
 });
-
-
