@@ -41,7 +41,10 @@
 #legend {
   background: white;
   padding: 10px;
-  z-index: 110;
+  z-index: 1;
+  margin-left: 10px;
+  text-transform: capitalize;
+  border: 1px solid black;
 }
 
 .event-kind {
