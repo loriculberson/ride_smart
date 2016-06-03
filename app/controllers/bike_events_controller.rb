@@ -8,7 +8,6 @@ class BikeEventsController < ApplicationController
     respond_to do |format| 
       format.html
       format.json do 
-        # bike_events = BikeEvent.all.map do |bike_event|
         bike_events = BikeEvent.filter_by(params[:event_kind]).map do |bike_event|
           details = render_to_string(
             partial: 'show.html', 
@@ -35,10 +34,21 @@ class BikeEventsController < ApplicationController
 
   def create
     @bike_event = current_user.bike_events.new(bike_event_params)
-    if @bike_event.save
-      render partial: 'show', locals: { bike_event: @bike_event }, layout: false
-    else
-      render partial: 'partials/bike_events_errors', status: 422, layout: false
+
+    respond_to do |format|
+      if @bike_event.save
+        format.html { 
+          render partial: 'show', locals: { bike_event: @bike_event }, layout: false
+        }
+        #go to the database and fetch the correct pin color for the bike event
+        # and send it back to the function
+        # format.json { render json: @bike_event }
+        # require 'pry';binding.pry
+      else
+        format.html {
+          render partial: 'partials/bike_events_errors', status: 422, layout: false
+        }
+      end
     end
   end
 
@@ -57,6 +67,4 @@ class BikeEventsController < ApplicationController
     params.require(:bike_event).permit(:event_kind, :occurred_at, :details,
                                         :user_id, :latitude, :longitude )
   end
-
-
 end

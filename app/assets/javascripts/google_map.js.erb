@@ -100,11 +100,29 @@ $(document).ready(function (){
 
         bikeEventForm.on('ajax:success', function(event, responseData){
           var eventDetails = $(responseData);
+          //properIcon the correct pin color that comes back from the db
+          var properIcon = marker.icon
+console.log(marker.icon);
           // bikeInfoWindow.close();
           bikeInfoWindow.setContent(eventDetails[0]);
+    // debugger;
+    // console.log(marker);
+
           //setContent doesn't know what to do with a jQuery object
           //eventDetails[0] is the first and only element in the array
           //and since you need the entire element, use [0]
+
+        //upon click/save, update the pincolor
+        //***********NEED AJAX HERE ***********
+
+        $.ajax({
+          type: 'POST', 
+          url: '/bike_events',
+          data: properIcon, //the marker data returning from the server
+          success:function(data) {
+            marker.setIcon(properIcon)
+          }
+        })
 
           var removeMarkerLink = eventDetails.find('.bye a')
           removeMarkerLink.on('click', function(event){
@@ -138,13 +156,14 @@ $(document).ready(function (){
 
       bindEvents();
 
+      // var properIcon = marker.icon
       google.maps.event.addListener(marker, 'click', function(){
         marker.draggable = false;
         // id for lat and long hidden fields, store marker position
         bikeInfoWindow.open(map, marker);
-        //console.log($('#bike_event_latitude').val(marker.position.A));
         $('#bike_event_latitude').val(marker.getPosition().lat());
         $('#bike_event_longitude').val(marker.getPosition().lng());
+
       });
     });
 
