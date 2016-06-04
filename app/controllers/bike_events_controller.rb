@@ -35,21 +35,11 @@ class BikeEventsController < ApplicationController
   def create
     @bike_event = current_user.bike_events.new(bike_event_params)
 
-    respond_to do |format|
       if @bike_event.save
-        format.html { 
-          render partial: 'show', locals: { bike_event: @bike_event }, layout: false
-        }
-        #go to the database and fetch the correct pin color for the bike event
-        # and send it back to the function
-        # format.json { render json: @bike_event }
-        # require 'pry';binding.pry
+        render partial: 'show', locals: { bike_event: @bike_event }, layout: false
       else
-        format.html {
-          render partial: 'partials/bike_events_errors', status: 422, layout: false
-        }
+        render partial: 'partials/bike_events_errors', status: 422, layout: false
       end
-    end
   end
 
   def edit

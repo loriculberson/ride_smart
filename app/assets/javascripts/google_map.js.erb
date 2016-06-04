@@ -99,30 +99,36 @@ $(document).ready(function (){
         //then get the show view content = responseData
 
         bikeEventForm.on('ajax:success', function(event, responseData){
+          var bikeEventKind = $('#bike_event_event_kind').val();
+          function fetchProperIcon (bikeEventKind){
+            switch (bikeEventKind) {
+              case "Accident":
+                var properIcon = "<%= asset_path('bike_marker2.png') %>";
+                break;
+              case "Road Hazard":
+                var properIcon = "<%= asset_path('pin_orange.png') %>";
+                break;
+              case "Freak, wildlife incident":
+                var properIcon = "<%= asset_path('pin_purple.png') %>";
+                break;
+              case "Other":
+                var properIcon = "<%= asset_path('pin_blue.png') %>";
+                break;
+            }
+            return properIcon;
+          }
+
+          var properIcon = fetchProperIcon(bikeEventKind);
+            marker.setIcon(properIcon)
+
           var eventDetails = $(responseData);
-          //properIcon the correct pin color that comes back from the db
-          var properIcon = marker.icon
-console.log(marker.icon);
+          //properIcon the pin color that comes back from the db
           // bikeInfoWindow.close();
           bikeInfoWindow.setContent(eventDetails[0]);
-    // debugger;
-    // console.log(marker);
 
           //setContent doesn't know what to do with a jQuery object
           //eventDetails[0] is the first and only element in the array
           //and since you need the entire element, use [0]
-
-        //upon click/save, update the pincolor
-        //***********NEED AJAX HERE ***********
-
-        $.ajax({
-          type: 'POST', 
-          url: '/bike_events',
-          data: properIcon, //the marker data returning from the server
-          success:function(data) {
-            marker.setIcon(properIcon)
-          }
-        })
 
           var removeMarkerLink = eventDetails.find('.bye a')
           removeMarkerLink.on('click', function(event){
@@ -156,14 +162,12 @@ console.log(marker.icon);
 
       bindEvents();
 
-      // var properIcon = marker.icon
       google.maps.event.addListener(marker, 'click', function(){
         marker.draggable = false;
         // id for lat and long hidden fields, store marker position
         bikeInfoWindow.open(map, marker);
         $('#bike_event_latitude').val(marker.getPosition().lat());
         $('#bike_event_longitude').val(marker.getPosition().lng());
-
       });
     });
 
