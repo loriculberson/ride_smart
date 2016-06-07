@@ -88,7 +88,6 @@ $(document).ready(function (){
     google.maps.event.addListener(map, 'click', function loggedInUser(event){
       function bindEvents() {
         var bikeEventForm = $(bikeInfoWindow.getContent());
-
         //if there are errors in the new bike event form
         bikeEventForm.on('ajax:error', function(event, xhr) {
           var errorsDivContent = xhr.responseText;   //this is html
@@ -123,7 +122,7 @@ $(document).ready(function (){
       var marker = new google.maps.Marker({
         position: event.latLng,
         map: map,
-        draggable: true,
+        draggable: false,
         animation: google.maps.Animation.DROP,
         // icon: icons[bikeEvent.icon]
         icon: "<%= asset_path('bike_marker2.png') %>"
@@ -135,17 +134,11 @@ $(document).ready(function (){
 
       //set the content of the infoWindow
       bikeInfoWindow.setContent(initialBikeEventForm[0]);
+      bikeInfoWindow.open(map, marker);
+      $('#bike_event_latitude').val(event.latLng.lat())
+      $('#bike_event_longitude').val(event.latLng.lng())
 
       bindEvents();
-
-      google.maps.event.addListener(marker, 'click', function(){
-        marker.draggable = false;
-        // id for lat and long hidden fields, store marker position
-        bikeInfoWindow.open(map, marker);
-        //console.log($('#bike_event_latitude').val(marker.position.A));
-        $('#bike_event_latitude').val(marker.getPosition().lat());
-        $('#bike_event_longitude').val(marker.getPosition().lng());
-      });
     });
 
   } else {
@@ -264,3 +257,5 @@ $(document).ready(function (){
     });
   }
 });
+
+
