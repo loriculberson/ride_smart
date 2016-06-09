@@ -102,9 +102,33 @@ $(document).ready(function (){
         //then get the show view content = responseData
 
         bikeEventForm.on('ajax:success', function(event, responseData){
+          var bikeEventKind = $('#bike_event_event_kind').val();
+          function fetchProperIcon (bikeEventKind){
+            switch (bikeEventKind) {
+              case "Accident":
+                var properIcon = "<%= asset_path('bike_marker2.png') %>";
+                break;
+              case "Road Hazard":
+                var properIcon = "<%= asset_path('pin_orange.png') %>";
+                break;
+              case "Freak, wildlife incident":
+                var properIcon = "<%= asset_path('pin_purple.png') %>";
+                break;
+              case "Other":
+                var properIcon = "<%= asset_path('pin_blue.png') %>";
+                break;
+            }
+            return properIcon;
+          }
+
+          var properIcon = fetchProperIcon(bikeEventKind);
+            marker.setIcon(properIcon)
+
           var eventDetails = $(responseData);
+          //properIcon the pin color that comes back from the db
           // bikeInfoWindow.close();
           bikeInfoWindow.setContent(eventDetails[0]);
+
           //setContent doesn't know what to do with a jQuery object
           //eventDetails[0] is the first and only element in the array
           //and since you need the entire element, use [0]
@@ -151,6 +175,7 @@ $(document).ready(function (){
     google.maps.event.addListener(map, 'click', loggedInUser );
 
   } else {
+    
     google.maps.event.addListener(map, 'click', function loggedOutUserClick(event){
       if (confirm('Would you like to login?') ) {
         window.location = "/login";
@@ -281,5 +306,3 @@ $(document).ready(function (){
     });
   }
 });
-
-
