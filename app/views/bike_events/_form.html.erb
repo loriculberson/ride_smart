@@ -1,38 +1,39 @@
   <div>
     <%= form_for(@bike_event, url: bike_events_path, remote: true, method: :post, role:"form") do |f| %>
 
-      <div class="errors">
-      </div>
+    <div class="errors">
+    </div>
 
-      <%= render partial: "bike_events/incident_types", locals: { f: f} %>
+    <%= render partial: "bike_events/incident_types", locals: { f: f} %>
 
-      <div class="form-align">
-        <div>
-          <%= f.label :date %>
-          <%= f.datetime_select :occurred_at, start_year:Date.today.year - 7, end_year:Date.today.year, ampm: true%><br>
-        </div>
-
-        <div>
-          <%= f.label :details%>
-          <%= f.text_area :details, cols: 40, rows: 2  %>
-        </div>
-
-        <div>
-          <%#= f.label :image, "Attach an Image" %><br />
-          <%#= f.file_field :image_url %>
-        </div>
+    <div class="form-align">
+      <div>
+        <%= f.label :date %>
+        <%= f.datetime_select :occurred_at, start_year:Date.today.year - 7, end_year:Date.today.year, ampm: true%><br>
       </div>
 
       <div>
-        <span id="latitude"> <%= f.hidden_field :latitude  %></span>
-        <span id="longitude"> <%= f.hidden_field :longitude  %></span>
+        <%= f.label :details%>
+        <%= f.text_area :details, cols: 40, rows: 2  %>
       </div>
 
       <div>
-        <%= f.submit "Report", class: "btn btn-primary btn-xs" %>
+        <%#= f.label :image, "Attach an Image" %><br />
+        <%#= f.file_field :image_url %>
       </div>
+    </div>
 
-    <% end %>
-  </div>
+    <div>
+      <span id="latitude"> <%= f.hidden_field :latitude  %></span>
+      <span id="longitude"> <%= f.hidden_field :longitude  %></span>
+    </div>
+
+    <div>
+      <%= f.submit "Report", class: "btn btn-primary btn-xs" %>
+      <%= link_to "Cancel", '#', class: "btn btn-danger btn-xs cancel-button"%>
+    </div>
+
+  <% end %>
+</div>
 
 

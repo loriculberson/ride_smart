@@ -86,6 +86,10 @@ $(document).ready(function (){
   if ( window.hasOwnProperty('current_user') ) {
     // click on map and add a pin
     function loggedInUser(event){
+      if (isInfoWindowOpen()) {
+        return;
+      }
+
       function bindEvents() {
         var bikeEventForm = $(bikeInfoWindow.getContent());
         //if there are errors in the new bike event form
@@ -124,7 +128,6 @@ $(document).ready(function (){
         map: map,
         draggable: false,
         animation: google.maps.Animation.DROP,
-        // icon: icons[bikeEvent.icon]
         icon: "<%= asset_path('bike_marker2.png') %>"
       });
 
@@ -135,9 +138,14 @@ $(document).ready(function (){
       //set the content of the infoWindow
       bikeInfoWindow.setContent(initialBikeEventForm[0]);
       bikeInfoWindow.open(map, marker);
+      google.maps.event.addListener(bikeInfoWindow,'closeclick',function(){
+       marker.setMap(null); //removes the marker then, remove the infowindow
+      });
+
+      cancelButton(marker);
+
       $('#bike_event_latitude').val(event.latLng.lat())
       $('#bike_event_longitude').val(event.latLng.lng())
-
       bindEvents();
     }
     google.maps.event.addListener(map, 'click', loggedInUser );
@@ -183,6 +191,23 @@ $(document).ready(function (){
     clearMarkers();
     fetchOthers(map);
   });
+
+  function cancelButton(marker) {
+    $('.cancel-button').on('click', function(event){
+     event.preventDefault();
+     marker.setMap(null);
+    })
+  };
+
+  function isInfoWindowOpen (){
+      console.log("Stop the markers!");
+      console.log("Cancel counter:" + $('.cancel-button:visible').length);
+    if ($('.cancel-button:visible').length > 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   function addClickListenerToRemoveMarker(contentsOfInfoWindow, marker) {
     var removeMarkerLink = contentsOfInfoWindow.find('.bye a')
