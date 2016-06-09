@@ -198,7 +198,7 @@ $(document).ready(function (){
      marker.setMap(null);
     })
   };
-
+//Guard clause ensures only one infoWindow is open at a time
   function isInfoWindowOpen (){
     if ($('.cancel-button:visible').length > 0) {
       return true;
