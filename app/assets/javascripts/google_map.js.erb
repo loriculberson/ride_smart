@@ -85,7 +85,7 @@ $(document).ready(function (){
 
   if ( window.hasOwnProperty('current_user') ) {
     // click on map and add a pin
-    google.maps.event.addListener(map, 'click', function loggedInUser(event){
+    function loggedInUser(event){
       function bindEvents() {
         var bikeEventForm = $(bikeInfoWindow.getContent());
         //if there are errors in the new bike event form
@@ -139,7 +139,8 @@ $(document).ready(function (){
       $('#bike_event_longitude').val(event.latLng.lng())
 
       bindEvents();
-    });
+    }
+    google.maps.event.addListener(map, 'click', loggedInUser );
 
   } else {
     google.maps.event.addListener(map, 'click', function loggedOutUserClick(event){
