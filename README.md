@@ -4,5 +4,5 @@
 
 <p><strong> Tech Stack:</strong> Rails 4.2, JavaScript, , jQuery, Bootstrap, RSpec.</p>
 
-<p><strong>Visit:  </strong><a href="http://ride-smart.herokuapp.com"> ride-smart.herokuapp.com</a></p>
+<p><strong>Visit:  </strong><a href="https://ride-smart.herokuapp.com"> ride-smart.herokuapp.com</a></p>
 
