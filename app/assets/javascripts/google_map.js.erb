@@ -122,7 +122,8 @@ $(document).ready(function (){
           }
 
           var properIcon = fetchProperIcon(bikeEventKind);
-            marker.setIcon(properIcon)
+          marker.setIcon(properIcon)
+          // marker.savedInDatabase = true;
 
           var eventDetails = $(responseData);
           //properIcon the pin color that comes back from the db
@@ -162,15 +163,20 @@ $(document).ready(function (){
       //set the content of the infoWindow
       bikeInfoWindow.setContent(initialBikeEventForm[0]);
       bikeInfoWindow.open(map, marker);
+
       google.maps.event.addListener(bikeInfoWindow,'closeclick',function(){
-       marker.setMap(null); //removes the marker then, remove the infowindow
+        // if (marker.savedInDatabase === false) {
+          // if (there is a remove marker link )
+          //is only happening to newly created markers, not the ones that have hit drawpins
+         marker.setMap(null); //removes the marker then, remove the infowindow
+        // }
       });
 
       cancelButton(marker);
-
       $('#bike_event_latitude').val(event.latLng.lat())
       $('#bike_event_longitude').val(event.latLng.lng())
       bindEvents();
+      debugger;
     }
     google.maps.event.addListener(map, 'click', loggedInUser );
 
@@ -245,6 +251,18 @@ $(document).ready(function (){
     })
   };
 
+// function clickWrapper(map, marker){
+//   var clickOnMarker = function(map, marker) {
+//   markerInfoWindow.open(map, marker);
+//   //isInfoWindowOpen is initially false
+//   //if true, set isInfoWindowOpen to false
+//   //if not true, set isInfoWindowOpen to true
+//   //inline ternary --> if x is true, set it to false, otherwise return true 
+//   isInfoWindowOpen = isInfoWindowOpen ? false : true;   
+//  }.bind(this);
+//  return clickOnMarker;
+// };
+
   //getting marker data from the database
   function drawPins(map, data) {
     data.forEach(function(bikeEvent){
@@ -266,8 +284,27 @@ $(document).ready(function (){
 
       addClickListenerToRemoveMarker(twoWheeledEvent, marker);
 
+      var isInfoWindowOpen = false;
+
+      // google.maps.event.addListener(marker, "click", clickWrapper(map, marker));
       google.maps.event.addListener(marker, 'click', function(){
         markerInfoWindow.open(map, marker);
+      //   //isInfoWindowOpen is initially false
+      //   //if true, set isInfoWindowOpen to false
+      //   //if not true, set isInfoWindowOpen to true
+      //   //inline ternary --> if x is true, set it to false, otherwise return true 
+        isInfoWindowOpen = isInfoWindowOpen ? false : true;
+      });
+
+      google.maps.event.addListener(marker, 'mouseover', function(){
+        markerInfoWindow.open(map, marker);
+      });
+
+      google.maps.event.addListener(marker, 'mouseout', function(){
+        if (isInfoWindowOpen === false) {
+          markerInfoWindow.close(map, marker);
+        }
+        //close if isInfoWindowOpen is false
       });
       markers.push(marker);
     });
