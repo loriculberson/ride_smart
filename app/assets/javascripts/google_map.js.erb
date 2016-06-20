@@ -87,9 +87,8 @@ $(document).ready(function (){
     // click on map and add a pin
     function loggedInUser(event){
       if (isInfoWindowOpen()) {
-        return;
+        return;  //break out of the function if there is an infoWindow open
       }
-
       function bindEvents() {
         var bikeEventForm = $(bikeInfoWindow.getContent());
         //if there are errors in the new bike event form
@@ -119,15 +118,15 @@ $(document).ready(function (){
                 break;
             }
             return properIcon;
+          //properIcon the pin color that comes back from the db
           }
 
           var properIcon = fetchProperIcon(bikeEventKind);
-          marker.setIcon(properIcon)
-          // marker.savedInDatabase = true;
+          marker.setIcon(properIcon);
+          marker.savedInDatabase = true;
 
           var eventDetails = $(responseData);
-          //properIcon the pin color that comes back from the db
-          // bikeInfoWindow.close();
+          bikeInfoWindow.close();
           bikeInfoWindow.setContent(eventDetails[0]);
 
           //setContent doesn't know what to do with a jQuery object
@@ -163,20 +162,24 @@ $(document).ready(function (){
       //set the content of the infoWindow
       bikeInfoWindow.setContent(initialBikeEventForm[0]);
       bikeInfoWindow.open(map, marker);
+      bindEvents();
 
       google.maps.event.addListener(bikeInfoWindow,'closeclick',function(){
-        // if (marker.savedInDatabase === false) {
+    // debugger;
+        if (marker.savedInDatabase == false) {
           // if (there is a remove marker link )
           //is only happening to newly created markers, not the ones that have hit drawpins
          marker.setMap(null); //removes the marker then, remove the infowindow
-        // }
+        }
       });
 
-      cancelButton(marker);
+      google.maps.event.addListener(marker, 'mouseover', function(){
+        bikeInfoWindow.open(map, marker);
+      });
+
       $('#bike_event_latitude').val(event.latLng.lat())
       $('#bike_event_longitude').val(event.latLng.lng())
-      bindEvents();
-      debugger;
+      cancelButton(marker);
     }
     google.maps.event.addListener(map, 'click', loggedInUser );
 
