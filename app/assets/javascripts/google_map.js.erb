@@ -86,7 +86,7 @@ $(document).ready(function (){
   if ( window.hasOwnProperty('current_user') ) {
     // click on map and add a pin
     function loggedInUser(event){
-      if (isInfoWindowOpen()) {
+      if (isNewBikeEventWindowOpen()) {
         return;  //break out of the function if there is an infoWindow open
       }
       function bindEvents() {
@@ -150,6 +150,7 @@ $(document).ready(function (){
       var marker = new google.maps.Marker({
         position: event.latLng,
         map: map,
+        savedInDatabase: false,
         draggable: false,
         animation: google.maps.Animation.DROP,
         icon: "<%= asset_path('bike_marker2.png') %>"
@@ -166,6 +167,7 @@ $(document).ready(function (){
 
       google.maps.event.addListener(bikeInfoWindow,'closeclick',function(){
     // debugger;
+        console.log("closeclick marker.savedInDatabase: " + marker.savedInDatabase)
         if (marker.savedInDatabase == false) {
           // if (there is a remove marker link )
           //is only happening to newly created markers, not the ones that have hit drawpins
@@ -173,8 +175,31 @@ $(document).ready(function (){
         }
       });
 
+      var isInfoWindowOpen = false;
+
+      google.maps.event.addListener(marker, 'click', function(){
+        bikeInfoWindow.open(map, marker);
+      //   //isInfoWindowOpen is initially false
+      //   //if true, set isInfoWindowOpen to false
+      //   //if not true, set isInfoWindowOpen to true
+      //   //inline ternary --> if x is true, set it to false, otherwise return true 
+        isInfoWindowOpen = isInfoWindowOpen ? false : true;
+      });
+
       google.maps.event.addListener(marker, 'mouseover', function(){
         bikeInfoWindow.open(map, marker);
+      });
+
+      google.maps.event.addListener(marker, 'mouseout', function(){
+        console.log("infoWindow cookies " + isInfoWindowOpen);
+        if (isNewBikeEventWindowOpen()) {
+          return;  //break out of the function if there is an infoWindow open
+        }
+        if (isInfoWindowOpen === false) {
+          bikeInfoWindow.close(map, marker);
+        console.log("infoWindow out " + isInfoWindowOpen);
+        }
+        //close if isInfoWindowOpen is false
       });
 
       $('#bike_event_latitude').val(event.latLng.lat())
@@ -232,8 +257,9 @@ $(document).ready(function (){
      marker.setMap(null);
     })
   };
+
 //Guard clause ensures only one infoWindow is open at a time
-  function isInfoWindowOpen (){
+  function isNewBikeEventWindowOpen (){
     if ($('.cancel-button:visible').length > 0) {
       return true;
     } else {
@@ -304,8 +330,10 @@ $(document).ready(function (){
       });
 
       google.maps.event.addListener(marker, 'mouseout', function(){
+        console.log("Draw pins isInfoWindowOpen " + isInfoWindowOpen )
         if (isInfoWindowOpen === false) {
           markerInfoWindow.close(map, marker);
+
         }
         //close if isInfoWindowOpen is false
       });
