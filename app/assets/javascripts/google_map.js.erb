@@ -26,29 +26,10 @@ $(document).ready(function (){
     }
   };
 
-  var legend = document.getElementById('legend');
-
-  map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(
-    document.getElementById('legend'));
-
-  var icon_types = new Array();
-  var icon_urls = new Array();
-  var legend_text = 'LEGEND' + '<br>';
-
-  for (var icon in icons) {
-    icon_types.push(icon);
-    icon_urls.push(icons[icon].url);
-  }
-
-  for (var i = 0, j = icon_types.length; i<j; i++) {
-    var div = document.createElement('div');
-    legend_text += '<img src="' + icon_urls[i] + '"> ' + icon_types[i] + "<br>";
-    div.innerHTML = legend_text;
-  }
-
-  document.getElementById("legend").innerHTML = legend_text;
-
+  placesSearch(map);
   fetchAllMarkers(map);
+  drawLegend(map, icons);
+
   //W3C Geolocation preferred
   if(navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
@@ -166,8 +147,6 @@ $(document).ready(function (){
       bindEvents();
 
       google.maps.event.addListener(bikeInfoWindow,'closeclick',function(){
-    // debugger;
-        console.log("closeclick marker.savedInDatabase: " + marker.savedInDatabase)
         if (marker.savedInDatabase == false) {
           // if (there is a remove marker link )
           //is only happening to newly created markers, not the ones that have hit drawpins
@@ -191,13 +170,11 @@ $(document).ready(function (){
       });
 
       google.maps.event.addListener(marker, 'mouseout', function(){
-        console.log("infoWindow cookies " + isInfoWindowOpen);
         if (isNewBikeEventWindowOpen()) {
           return;  //break out of the function if there is an infoWindow open
         }
         if (isInfoWindowOpen === false) {
           bikeInfoWindow.close(map, marker);
-        console.log("infoWindow out " + isInfoWindowOpen);
         }
         //close if isInfoWindowOpen is false
       });
@@ -280,18 +257,6 @@ $(document).ready(function (){
     })
   };
 
-// function clickWrapper(map, marker){
-//   var clickOnMarker = function(map, marker) {
-//   markerInfoWindow.open(map, marker);
-//   //isInfoWindowOpen is initially false
-//   //if true, set isInfoWindowOpen to false
-//   //if not true, set isInfoWindowOpen to true
-//   //inline ternary --> if x is true, set it to false, otherwise return true 
-//   isInfoWindowOpen = isInfoWindowOpen ? false : true;   
-//  }.bind(this);
-//  return clickOnMarker;
-// };
-
   //getting marker data from the database
   function drawPins(map, data) {
     data.forEach(function(bikeEvent){
@@ -330,10 +295,8 @@ $(document).ready(function (){
       });
 
       google.maps.event.addListener(marker, 'mouseout', function(){
-        console.log("Draw pins isInfoWindowOpen " + isInfoWindowOpen )
         if (isInfoWindowOpen === false) {
           markerInfoWindow.close(map, marker);
-
         }
         //close if isInfoWindowOpen is false
       });
@@ -374,3 +337,4 @@ $(document).ready(function (){
     });
   }
 });
+
