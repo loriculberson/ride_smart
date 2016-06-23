@@ -105,7 +105,6 @@ $(document).ready(function (){
           var properIcon = fetchProperIcon(bikeEventKind);
           marker.setIcon(properIcon);
           marker.savedInDatabase = true;
-
           var eventDetails = $(responseData);
           bikeInfoWindow.close();
           bikeInfoWindow.setContent(eventDetails[0]);

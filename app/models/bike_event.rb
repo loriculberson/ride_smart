@@ -2,6 +2,7 @@ class BikeEvent < ActiveRecord::Base
   validates :event_kind, :occurred_at, :details, :user_id, :latitude, :longitude, presence: true
   validate :valid_date
   belongs_to :user
+  mount_uploader :avatar, AvatarUploader
 
   def valid_date
     if occurred_at && occurred_at.future?
