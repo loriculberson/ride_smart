@@ -15,6 +15,10 @@ gem 'google-api-client'
 gem 'omniauth-google-oauth2'
 gem 'responders'
 gem "skylight"
+gem 'carrierwave'
+gem 'fog'
+gem "mini_magick"
+gem 'remotipart', '~> 1.2'
 
 group :production do
   gem 'rails_12factor', '~> 0.0.3'
@@ -24,7 +28,6 @@ group :development, :test do
   gem 'pry'
   gem 'rspec-rails'
   gem 'pry-rails'
-  # gem 'web-console', '~> 2.0'
   gem 'spring'
   gem 'dotenv-rails'
 end

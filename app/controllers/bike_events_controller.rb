@@ -20,6 +20,7 @@ class BikeEventsController < ApplicationController
             id:         bike_event.id,
             event_kind: bike_event.event_kind,
             icon:       bike_event.pin_color,
+            avatar:     bike_event.avatar,
             details:    details
           }
         end
@@ -36,9 +37,9 @@ class BikeEventsController < ApplicationController
     @bike_event = current_user.bike_events.new(bike_event_params)
 
       if @bike_event.save
-        render partial: 'show', locals: { bike_event: @bike_event }, layout: false
+        render partial: 'show', locals: { bike_event: @bike_event }, status: 201
       else
-        render partial: 'partials/bike_events_errors', status: 422, layout: false
+        render partial: 'partials/bike_events_errors', status: 422
       end
   end
 
@@ -55,6 +56,7 @@ class BikeEventsController < ApplicationController
   private
   def bike_event_params
     params.require(:bike_event).permit(:event_kind, :occurred_at, :details,
-                                        :user_id, :latitude, :longitude )
+                                        :user_id, :latitude, :longitude, :avatar
+                                      )
   end
 end
