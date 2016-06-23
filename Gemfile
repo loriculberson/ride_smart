@@ -16,13 +16,14 @@ gem 'omniauth-google-oauth2'
 gem 'responders'
 gem "skylight"
 gem 'carrierwave'
-gem 'fog'
 gem "mini_magick"
 gem 'remotipart', '~> 1.2'
+gem 'carrierwave-aws', '~> 1.0.1'
 
 group :production do
   gem 'rails_12factor', '~> 0.0.3'
 end
+
 group :development, :test do
   gem 'byebug'
   gem 'pry'
