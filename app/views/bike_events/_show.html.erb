@@ -1,17 +1,18 @@
-<div class="tool-tip">
-  <p> <%= bike_event.user.username %> reports:
-  <div class="event-kind"><%= bike_event.event_kind %></div>  on 
-  <%= bike_event.date %> @
-  <%= bike_event.time %>
-
-  <div>
-    Details: <%= bike_event.details %> </p>
+<div class="tool-tip row">
+  <div class="col-xs-4" id= "event-img">
+    <%= image_tag bike_event.avatar_url, width: "100" %>
   </div>
+  <div class="col-xs-8 pull-right">
+    <%= bike_event.user.username %> reports:
+      <div class="event-kind"><%= bike_event.event_kind %> on
+        <%= bike_event.date %> @ <%= bike_event.time %><br>
+        Details: <%= bike_event.details %>
+      </div>
 
-  <p><%= image_tag bike_event.avatar_url(:thumb).to_s %></p>
-  <% if current_user && current_user.id == bike_event.user_id %>
-  <div class="bye">
-    <%=link_to "Remove marker", bike_event_path(bike_event.id) %>
+      <% if current_user && current_user.id == bike_event.user_id %>
+      <div class="bye">
+        <%=link_to "Remove marker", bike_event_path(bike_event.id) %>
+      </div>
+    <% end %>
   </div>
-  <% end %>
 </div>
