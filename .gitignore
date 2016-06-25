@@ -14,4 +14,4 @@
 .env
 public/assets
 coverage
-
+public/uploads/
