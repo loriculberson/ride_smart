@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+ruby '2.3.1'
 gem 'bootstrap-sass', '~> 3.3.4'
 
 gem 'rails', '4.2.1'
@@ -12,9 +13,9 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'bcrypt', '~> 3.1.7'
 gem 'google-api-client'
+gem 'omniauth-oauth2', '~> 1.3.1'
 gem 'omniauth-google-oauth2'
 gem 'responders'
-gem "skylight"
 gem 'carrierwave'
 gem "mini_magick"
 gem 'remotipart', '~> 1.2'
@@ -25,8 +26,7 @@ group :production do
 end
 
 group :development, :test do
-  gem 'byebug'
-  gem 'pry'
+  gem 'pry-byebug'
   gem 'rspec-rails'
   gem 'pry-rails'
   gem 'spring'
