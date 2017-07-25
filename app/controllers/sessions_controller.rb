@@ -34,19 +34,29 @@ class SessionsController < ApplicationController
   end
 
   def login_with_google
-    user = User.find_or_create_from_auth(auth)
-    
-    if user
-      session[:user_id] = user.id
-      flash[:success] = "Successfully logged in!"
-      redirect_to root_path
+    if email_associated_with_user_exists?
+      user = User.find_by_email(auth)
     else
-      flash[:danger] = "Invalid login. Please try again."
-      redirect_to root_path
+      user = User.find_or_create_from_auth(auth)
     end
+    create_session(user)
+    redirect_to root_path
+  end
+
+  def email_associated_with_user_exists?
+    !User.find_by(email: auth.info.email).nil?
   end
   
   def auth
     request.env['omniauth.auth']
+  end
+
+  def create_session(user)
+    if user
+      session[:user_id] = user.id
+      flash[:success] = "Successfully logged in!"
+    else
+      flash[:danger] = "Invalid login. Please try again."
+    end
   end
 end
