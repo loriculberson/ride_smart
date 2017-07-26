@@ -54,8 +54,8 @@ RSpec.describe "authorized user can login", type: :feature do
     expect(page).to have_content("Hello google_mock_user!")
   end
 
-  describe "user relogs in with Google" do 
-    context "is an existing user in database" do
+  describe "user created account with email exisits in database" do 
+    context "logs in with Google" do
       it "finds the user by email" do 
 
         User.create!(
@@ -71,7 +71,6 @@ RSpec.describe "authorized user can login", type: :feature do
         click_on 'Login'
         click_on 'with Google'
 
-        # expect(page).to have_content('Your account exists already.')
         expect(current_path).to eql(root_path)
       end
     end
