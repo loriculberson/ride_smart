@@ -1,8 +1,19 @@
 CarrierWave.configure do |config|
-  config.storage    = :aws
+
+  if Rails.env.development? || Rails.env.test?
+    CarrierWave.configure do |config|
+      config.storage = :file
+    end
+  end
+
+  if Rails.env.production?
+    CarrierWave.configure do |config|
+      config.storage = :aws
+    end
+  end
+  # config.storage    = :aws
   config.aws_bucket = ENV.fetch('S3_BUCKET_NAME')
   config.aws_acl    = 'public-read'
-
   config.aws_authenticated_url_expiration = 60 * 60 * 24 * 7
 
   # Set custom options such as cache control to leverage browser caching
@@ -18,3 +29,5 @@ CarrierWave.configure do |config|
     endpoint:          "https://s3.amazonaws.com"
   }
 end
+
+# You tell Carrierwave to use the file store in dev and test, and S3 in prod.
