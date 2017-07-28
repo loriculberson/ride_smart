@@ -1,1 +1,8 @@
 language: ruby
+services:
+  - postgresql
+before_script:
+  - psql -c 'create database ride_smart_test;' -U postgres
+test:
+  adapter: postgresql
+  database: ride_smart_test
